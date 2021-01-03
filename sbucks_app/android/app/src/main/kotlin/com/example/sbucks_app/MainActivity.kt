@@ -1,4 +1,4 @@
-package com.example.sbucks_app
+package id.co.sbucks
 
 import io.flutter.embedding.android.FlutterActivity
 

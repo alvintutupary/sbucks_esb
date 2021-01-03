@@ -1,4 +1,4 @@
-# sbucks_app
+# sbucks
 
 A new Flutter project.
 

@@ -29,10 +29,10 @@ class SizeConfig {
   }) {
     // if (_mediaQueryData == null) {
     _mediaQueryData = MediaQuery.of(context);
-    _designWidth = designWidth ?? _defaultDesignWidth;
-    _designHeight = designHeight ?? _defaultDesignHeight;
-    _screenWidth = screenWidth ?? _mediaQueryData.size.shortestSide;
-    _screenHeight = screenHeight ?? _mediaQueryData.size.longestSide;
+    _designWidth = 360;
+    _designHeight = 592; //designHeight ?? _defaultDesignHeight;
+    _screenWidth = _mediaQueryData.size.shortestSide;
+    _screenHeight = _mediaQueryData.size.longestSide;
     _allowFontScaling = allowFontScaling ?? _defaultAllowFontScaling;
     _textScaleFactor = _mediaQueryData.textScaleFactor;
     _scaleWidth = _screenWidth / _designWidth;

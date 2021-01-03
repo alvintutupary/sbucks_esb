@@ -171,44 +171,44 @@ class AppTextStyle {
     final textTheme = Theme.of(context).textTheme;
     headline5 = textTheme.headline5.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 24.scs,
+      fontSize: 24,
     );
     headline6 = textTheme.headline6.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 20.scs,
+      fontSize: 20,
     );
     subtitle2 = textTheme.subtitle2.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 10.scs,
+      fontSize: 10,
       letterSpacing: 0.25,
     );
     bodyText0 = textTheme.bodyText1.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 10.scs,
+      fontSize: 10,
       letterSpacing: 0.25,
     );
     bodyText1 = textTheme.bodyText1.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 12.scs,
+      fontSize: 12,
       letterSpacing: 0.25,
     );
     bodyText2 = textTheme.bodyText1.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 14.scs,
+      fontSize: 14,
       letterSpacing: 0.25,
     );
     bodyText3 = textTheme.bodyText1.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 16.scs,
+      fontSize: 16,
       letterSpacing: 0.25,
     );
     button = textTheme.button.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 14.scs,
+      fontSize: 14,
     );
     overline = textTheme.overline.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 10.scs,
+      fontSize: 10,
     );
     // }
 

@@ -48,13 +48,13 @@ class WideButton extends StatelessWidget {
         ),
         color: this.color ?? Theme.of(context).accentColor,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10.scw),
+          padding: EdgeInsets.symmetric(vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               if (this.icon != null)
                 Padding(
-                  padding: EdgeInsets.only(right: 8.scw),
+                  padding: EdgeInsets.only(right: 8),
                   child: this.icon,
                 ),
               child,

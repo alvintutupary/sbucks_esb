@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sbucks/src/screens/login_screen/login_screen.dart';
-// import 'package:sbucks/src/blocs/app_bloc.dart';
-// import 'package:sbucks/src/models/user_model.dart';
-// import 'package:sbucks/src/screens/login_screen/login_screen.dart';
-// import 'package:sbucks/src/screens/main_screen/main_screen.dart';
-import 'package:sbucks/src/utils/size_config.dart';
 import 'package:sbucks/src/utils/style.dart';
-import 'package:sbucks/src/widgets/common/app_spacer.dart';
 import 'package:sbucks/src/widgets/common/wide_button.dart';
+import 'package:sbucks/src/screens/register_screen/register_widgets/agreement.dart';
 
 class _IntroItem {
   String imageUri;
@@ -23,158 +18,227 @@ class _IntroItem {
   );
 }
 
-List items = [
-  {
-    "header": "Welcome",
-    "description": "Thanks for downloading the new starbuck ID App",
-    "image": "assets/img/icon-1.PNG",
-    "bgimage": "assets/img/bg-1.jpg"
-  },
-  {
-    "header": "Virtual Card",
-    "description": "Simply scan to pay and collect stars to earn reward",
-    "image": "assets/img/icon-2.PNG",
-    "bgimage": "assets/img/bg-2.jpg"
-  },
-  {
-    "header": "Stay Current",
-    "description": "Receive news and special offers directly to your app.",
-    "image": "assets/img/icon-3.PNG",
-    "bgimage": "assets/img/bg-3.jpg"
-  },
-  {
-    "header": "Find a Store",
-    "description":
-        "Search for a store near you and get turn by turn directions.",
-    "image": "assets/img/icon-4.PNG",
-    "bgimage": "assets/img/bg-3.jpg"
-  }
-];
-
 class IntroScreen extends StatefulWidget {
-  static const kRouteName = '/';
+  static const kRouteName = '/intro';
+
   @override
   _IntroScreenState createState() => _IntroScreenState();
 }
 
 class _IntroScreenState extends State<IntroScreen> {
-  List<Widget> slides = items
-      .map((item) => Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(item['bgimage']),
-              fit: BoxFit.cover,
+  int _current = 0;
+
+  final _introItems = List<_IntroItem>()
+    ..add(_IntroItem(
+      'assets/img/icon-1.PNG',
+      'assets/img/bg-1.jpg',
+      'Welcome',
+      'Thanks for downloading\nthe new Starbucks\u00a9 ID App',
+    ))
+    ..add(_IntroItem(
+      'assets/img/icon-2.PNG',
+      'assets/img/bg-2.jpg',
+      'Virtual Card',
+      'Simply scan to pay and collect\nStars to earn rewards',
+    ))
+    ..add(_IntroItem(
+      'assets/img/icon-3.PNG',
+      'assets/img/bg-3.jpg',
+      'Stay Current',
+      'Receive news and special offers\ndirectly to your app',
+    ))
+    ..add(_IntroItem(
+      'assets/img/icon-4.PNG',
+      'assets/img/bg-4.jpg',
+      'Find a Store',
+      'Search for a store near you and\nget turn by turn directions',
+    ))
+    ..add(_IntroItem(
+      'assets/img/icon-5.PNG',
+      'assets/img/bg-5.jpg',
+      '',
+      '',
+    ));
+
+  Widget _buildContent(_IntroItem item) {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(item.bgImageUri),
+          fit: BoxFit.cover,
+        ),
+      ),
+      // color: Colors.transparent,
+      padding: EdgeInsets.only(
+        left: 8,
+        top: 0,
+        right: 8,
+        bottom: 150,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              left: 10,
+              right: 10,
+              bottom: 5,
+              top: 52,
+            ),
+            child: Image.asset(
+              item.imageUri,
+              height: 285,
             ),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 18.0),
-          child: Column(
-            children: <Widget>[
-              Flexible(
-                flex: 1,
-                fit: FlexFit.tight,
-                child: Image.asset(
-                  item['image'],
-                  fit: BoxFit.fitWidth,
-                  width: 220.scw,
-                  alignment: Alignment.bottomCenter,
-                ),
+          Column(
+            children: [
+              Text(
+                item.title,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 50),
               ),
-              Flexible(
-                flex: 1,
-                fit: FlexFit.tight,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Column(
-                    children: <Widget>[
-                      Text(item['header'],
-                          style: TextStyle(
-                              fontSize: 50.0,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white, //Color(0XFF3F3D56),
-                              height: 5.0)),
-                      Text(
-                        item['description'],
-                        style: TextStyle(
-                            color: Colors.white,
-                            letterSpacing: 1.2,
-                            fontSize: 25.0,
-                            height: 1.3),
-                        textAlign: TextAlign.center,
-                      )
-                    ],
-                  ),
-                ),
-              )
+              Padding(
+                padding: EdgeInsets.all(15.0),
+              ),
+              Text(
+                item.subtitle,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
             ],
-          )))
-      .toList();
+          )
+        ],
+      ),
+    );
+  }
 
-  List<Widget> indicator() => List<Widget>.generate(
-      slides.length,
-      (index) => Container(
-            margin: EdgeInsets.symmetric(horizontal: 3.0),
-            height: 10.0,
-            width: 10.0,
-            decoration: BoxDecoration(
-                color: currentPage.round() == index
-                    ? Color(0XFF256075)
-                    : Colors.white
-                        .withOpacity(0.5), //Color(0XFF256075).withOpacity(0.2),
-                borderRadius: BorderRadius.circular(10.0)),
-          ));
+  Widget _buildIndicator() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: _introItems.map((item) {
+        int index = _introItems.indexOf(item);
+        return AnimatedContainer(
+          duration: Duration(milliseconds: 100),
+          width: _current == index ? 8.0 : 8.0,
+          height: 8.0,
+          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100.0),
+            color: _current == index ? Color(0xff006442) : Color(0xFFC4C4C4),
+          ),
+          curve: Curves.fastOutSlowIn,
+        );
+      }).toList(),
+    );
+  }
 
-  double currentPage = 0.0;
-  final _pageViewController = new PageController();
+  void _showLoginDialog() async {
+    final user =
+        await Navigator.pushNamed(context, LoginScreen.kRouteName); //as User;
+    if (user != null) {
+      // appBloc.finishFirstRun();
+      // appBloc.changeUser(user);
+      // Navigator.pushReplacementNamed(context, MainScreen.kRouteName);
+    }
+  }
+
+  Widget _buildButtons() {
+    final isLastIndex =
+        _introItems[_current] == _introItems[_introItems.length - 1];
+
+    return AnimatedCrossFade(
+      duration: Duration(milliseconds: 100),
+      firstChild: Container(),
+      secondChild: Column(
+        children: [
+          WideButton(
+            color: Color(0xff006442),
+            flatButton: true,
+            child: Text(
+              'SignIn',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+            onPressed: () {
+              // appBloc.finishFirstRun();
+              Navigator.pushReplacementNamed(
+                context,
+                AgreementScreen.kRouteName,
+              );
+            },
+          ),
+          // AppSpacer.vSpacing(8),
+          WideButton(
+            borderSide: BorderSide(
+              color: AppColor.kLoginRegisterBorder,
+            ),
+            flatButton: true,
+            color: AppColor.kPrimaryBackground,
+            child: Text(
+              'Join Now',
+              style: TextStyle(
+                  color: Color(0xff006442), fontWeight: FontWeight.w900),
+            ),
+            onPressed: _showLoginDialog,
+          ),
+        ],
+      ),
+      crossFadeState:
+          isLastIndex ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Stack(
-          children: <Widget>[
-            PageView.builder(
-              controller: _pageViewController,
-              itemCount: slides.length,
-              itemBuilder: (BuildContext context, int index) {
-                _pageViewController.addListener(() {
-                  setState(() {
-                    currentPage = _pageViewController.page;
-                  });
-                });
-                return slides[index];
-              },
-            ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                margin: EdgeInsets.only(top: 70.0),
-                padding: EdgeInsets.symmetric(vertical: 40.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: indicator(),
-                ),
-              ),
-              //  ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                margin: EdgeInsets.only(top: 70.0),
-                padding: EdgeInsets.symmetric(vertical: 40.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                    );
-                  },
-                  child: Text('Masuk'),
-                ),
-              ),
-            ),
-            //  ),
+    final deviceHeight =
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
 
-            // )
-          ],
+    return Scaffold(
+      backgroundColor: AppColor.kPrimaryBackground,
+      body: Container(
+        margin: EdgeInsets.only(
+          top: MediaQuery.of(context).padding.top,
+        ),
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: deviceHeight,
+            child: Stack(
+              children: [
+                ScrollConfiguration(
+                  behavior: ScrollBehavior()
+                    ..buildViewportChrome(context, null, AxisDirection.down),
+                  child: SizedBox(
+                    height: deviceHeight,
+                    child: PageView(
+                      children: [
+                        for (final item in _introItems) _buildContent(item),
+                      ],
+                      onPageChanged: (int index) {
+                        setState(() {
+                          _current = index;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 20,
+                  child: _buildIndicator(),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: _buildButtons(),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
