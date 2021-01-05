@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sbucks/src/screens/login_screen/login_screen.dart';
+import 'package:sbucks/src/screens/register_screen/register_screen.dart';
 import 'package:sbucks/src/utils/style.dart';
 import 'package:sbucks/src/widgets/common/wide_button.dart';
-import 'package:sbucks/src/screens/register_screen/register_widgets/agreement.dart';
 
 class _IntroItem {
   String imageUri;
@@ -132,15 +132,15 @@ class _IntroScreenState extends State<IntroScreen> {
     );
   }
 
-  void _showLoginDialog() async {
-    final user =
-        await Navigator.pushNamed(context, LoginScreen.kRouteName); //as User;
-    if (user != null) {
-      // appBloc.finishFirstRun();
-      // appBloc.changeUser(user);
-      // Navigator.pushReplacementNamed(context, MainScreen.kRouteName);
-    }
-  }
+  // void _showLoginDialog() async {
+  //   final user = await Navigator.pushNamed(
+  //       context, RegisterScreen.kRouteName); //as User;
+  //   if (user != null) {
+  //     // appBloc.finishFirstRun();
+  //     // appBloc.changeUser(user);
+  //     // Navigator.pushReplacementNamed(context, MainScreen.kRouteName);
+  //   }
+  // }
 
   Widget _buildButtons() {
     final isLastIndex =
@@ -159,11 +159,12 @@ class _IntroScreenState extends State<IntroScreen> {
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
+            circularRadius: 0,
             onPressed: () {
               // appBloc.finishFirstRun();
               Navigator.pushReplacementNamed(
                 context,
-                AgreementScreen.kRouteName,
+                LoginScreen.kRouteName,
               );
             },
           ),
@@ -172,6 +173,7 @@ class _IntroScreenState extends State<IntroScreen> {
             borderSide: BorderSide(
               color: AppColor.kLoginRegisterBorder,
             ),
+            circularRadius: 0,
             flatButton: true,
             color: AppColor.kPrimaryBackground,
             child: Text(
@@ -179,7 +181,12 @@ class _IntroScreenState extends State<IntroScreen> {
               style: TextStyle(
                   color: Color(0xff006442), fontWeight: FontWeight.w900),
             ),
-            onPressed: _showLoginDialog,
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                RegisterScreen.kRouteName,
+              );
+            },
           ),
         ],
       ),

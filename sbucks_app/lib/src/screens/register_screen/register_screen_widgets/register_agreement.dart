@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AgreementScreen extends StatelessWidget {
+class RegisterAgreement extends StatelessWidget {
   static const kRouteName = '/agreement';
   final String agreementText = """
 GORIDE TERMS OF USE
@@ -49,31 +49,40 @@ You can contact us by e-mail to the following address: customerservice@gojek.com
 """;
 
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: new Scaffold(
-            appBar: new AppBar(
-              title: const Text('Agreement'),
-              actions: [
-                new FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).pop('User Agreed');
-                    },
-                    child: new Text('AGREE',
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            .copyWith(color: Colors.white))),
-              ],
-            ),
-            backgroundColor: Colors.white,
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  agreementText,
-                  textAlign: TextAlign.justify,
-                ),
-              ),
-            )));
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          agreementText,
+          textAlign: TextAlign.justify,
+        ),
+      ),
+    );
+    // return SafeArea(
+    //     child: new Scaffold(
+    //         appBar: new AppBar(
+    //           title: const Text('Agreement'),
+    //           actions: [
+    //             new FlatButton(
+    //                 onPressed: () {
+    //                   Navigator.of(context).pop('User Agreed');
+    //                 },
+    //                 child: new Text('AGREE',
+    //                     style: Theme.of(context)
+    //                         .textTheme
+    //                         .subtitle1
+    //                         .copyWith(color: Colors.white))),
+    //           ],
+    //         ),
+    //         backgroundColor: Colors.white,
+    //         body: SingleChildScrollView(
+    //           child: Padding(
+    //             padding: const EdgeInsets.all(8.0),
+    //             child: Text(
+    //               agreementText,
+    //               textAlign: TextAlign.justify,
+    //             ),
+    //           ),
+    //         )));
   }
 }

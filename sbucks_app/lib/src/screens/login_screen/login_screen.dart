@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sbucks/src/widgets/common/app_text_field.dart';
+import 'package:sbucks/src/widgets/common/wide_button.dart';
 
 class LoginScreen extends StatefulWidget {
   static const kRouteName = '/login';
@@ -8,8 +10,26 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = new GlobalKey<FormState>();
+  String _email, _password;
+
   @override
   Widget build(BuildContext context) {
+    final emailField = TextFormField(
+      autofocus: false,
+      validator: validateEmail,
+      onSaved: (value) => _email = value,
+      decoration: buildInputDecoration(hintText: "Email", icon: Icons.email),
+    );
+
+    final passwordField = TextFormField(
+      autofocus: false,
+      obscureText: true,
+      validator: (value) => value.isEmpty ? "Please enter password" : null,
+      onSaved: (value) => _password = value,
+      decoration: buildInputDecoration(hintText: "Password", icon: Icons.lock),
+    );
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -18,22 +38,31 @@ class _LoginScreenState extends State<LoginScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 100.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(),
-              TextField(),
-              RaisedButton(
-                onPressed: () {},
-                child: Text('SignIn'),
-              ),
-              RaisedButton(
-                onPressed: () {},
-                child: Text('SignUp'),
-              ),
-            ],
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                emailField,
+                passwordField,
+                WideButton(
+                  color: Color(0xff006442),
+                  flatButton: true,
+                  child: Text(
+                    'Sign Up',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  circularRadius: 0,
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      _formKey.currentState.save();
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

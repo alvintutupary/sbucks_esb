@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sbucks/src/utils/size_config.dart';
 
 class WideButton extends StatelessWidget {
   final double width;
