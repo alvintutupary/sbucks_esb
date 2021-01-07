@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:sbucks/src/screens/home_screen/home_screen.dart';
+import 'package:sbucks/src/screens/main_screen/main_screen.dart';
 import 'package:sbucks/src/widgets/common/wide_button.dart';
 
 class RegisterOTP extends StatefulWidget {
@@ -45,10 +46,11 @@ class _RegisterOTPState extends State<RegisterOTP> {
     super.dispose();
   }
 
+  static Color _color = Color(0xff006442);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.blue.shade50,
+      backgroundColor: Colors.white,
       key: scaffoldKey,
       body: GestureDetector(
         onTap: () {},
@@ -102,25 +104,27 @@ class _RegisterOTPState extends State<RegisterOTP> {
                       obscureText: false,
                       obscuringCharacter: '*',
                       animationType: AnimationType.fade,
-                      validator: (v) {
-                        if (v.length < 3) {
+                      validator: (value) {
+                        if (value.length != 6) {
                           return "complete the number";
                         } else {
                           return null;
                         }
                       },
                       pinTheme: PinTheme(
-                        shape: PinCodeFieldShape.underline,
-                        // borderRadius: BorderRadius.circular(5),
-                        fieldHeight: 60,
-                        fieldWidth: 50,
-                        activeFillColor:
-                            hasError ? Colors.orange[200] : Colors.white,
-                      ),
+                          shape: PinCodeFieldShape.underline,
+                          fieldHeight: 60,
+                          fieldWidth: 50,
+                          activeFillColor:
+                              hasError ? Colors.orange[200] : Colors.white,
+                          // selectedColor: Colors.grey,
+                          selectedFillColor: Colors.grey[300],
+                          selectedColor: _color,
+                          inactiveFillColor: Colors.grey,
+                          inactiveColor: _color),
                       cursorColor: Colors.black,
                       animationDuration: Duration(milliseconds: 300),
                       textStyle: TextStyle(fontSize: 20, height: 1.6),
-                      // backgroundColor: Colors.blue.shade50,
                       enableActiveFill: true,
                       errorAnimationController: errorController,
                       controller: textEditingController,
@@ -194,26 +198,28 @@ class _RegisterOTPState extends State<RegisterOTP> {
                   circularRadius: 0,
                   onPressed: () {
                     formKey.currentState.validate();
-                    if (currentText.length != 6) {
+                    if (currentText.length != 6 || currentText != '123123') {
                       errorController.add(ErrorAnimationType.shake);
-                      setState(() {
-                        hasError = true;
-                      });
+                      // setState(() {
+                      //   hasError = true;
+                      // });
                     } else {
-                      setState(() {
-                        hasError = false;
-                        scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text(
-                            "OKE",
-                            textAlign: TextAlign.center,
-                          ),
-                          duration: Duration(seconds: 2),
-                        ));
-                      });
-                      Navigator.popAndPushNamed(
+                      Navigator.pushNamed(
                         context,
-                        HomeScreen.kRouteName,
+                        MainScreen.kRouteName,
                       );
+
+                      // setState(() {
+                      //   hasError = false;
+                      //   // scaffoldKey.currentState.showSnackBar(SnackBar(
+                      //   //   content: Text(
+                      //   //     "OKE",
+                      //   //     textAlign: TextAlign.center,
+                      //   //   ),
+                      //   //   duration: Duration(seconds: 2),
+                      //   // ));
+
+                      // });
                     }
                   },
                 ),

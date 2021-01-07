@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:sbucks/src/utils/size_config.dart';
 
 class AppColor {
@@ -170,53 +170,53 @@ class AppTextStyle {
     final textTheme = Theme.of(context).textTheme;
     headline5 = textTheme.headline5.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 24,
+      fontSize: 24.scs,
     );
     headline6 = textTheme.headline6.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 20,
+      fontSize: 20.scs,
     );
     subtitle2 = textTheme.subtitle2.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 10,
+      fontSize: 10.scs,
       letterSpacing: 0.25,
     );
     bodyText0 = textTheme.bodyText1.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 10,
+      fontSize: 10.scs,
       letterSpacing: 0.25,
     );
     bodyText1 = textTheme.bodyText1.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 12,
+      fontSize: 12.scs,
       letterSpacing: 0.25,
     );
     bodyText2 = textTheme.bodyText1.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 14,
+      fontSize: 14.scs,
       letterSpacing: 0.25,
     );
     bodyText3 = textTheme.bodyText1.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 16,
+      fontSize: 16.scs,
       letterSpacing: 0.25,
     );
     button = textTheme.button.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 14,
+      fontSize: 14.scs,
     );
     overline = textTheme.overline.copyWith(
       color: AppColor.kPrimaryText,
-      fontSize: 10,
+      fontSize: 10.scs,
     );
     // }
 
     return _instance;
   }
 
-  // static void setStatusBarColor(
-  //     Color color, bool statusBarWhiteForeground) async {
-  //   await FlutterStatusbarcolor.setStatusBarColor(color, animate: true);
-  //   await FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
-  // }
+  static void setStatusBarColor(
+      Color color, bool statusBarWhiteForeground) async {
+    await FlutterStatusbarcolor.setStatusBarColor(color, animate: true);
+    await FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+  }
 }

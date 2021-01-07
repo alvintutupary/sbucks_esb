@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sbucks/src/screens/home_screen/home_screen_widgets/banner_slider.dart';
 import 'package:sbucks/src/screens/home_screen/home_screen_widgets/list_menu.dart';
+import 'package:sbucks/src/screens/home_screen/home_screen_widgets/linier_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const kRouteName = '/'; //'/home';
+  static const kRouteName = '/';
   HomeScreen({Key key}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -40,29 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: _buildHomeContext(
-              context) //_widgetOptions.elementAt(_selectedIndex),
-          ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home),
-      //       label: 'HOME',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.payment),
-      //       label: 'PAY',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.star),
-      //       label: 'REWARD',
-      //     ),
-      //   ],
-      //   currentIndex: _selectedIndex,
-      //   selectedItemColor: Color(0xff006442),
-      //   onTap: _onItemTapped,
-      // ),
+      body: Center(child: _buildHomeContext(context)),
     );
   }
 }
@@ -150,11 +129,7 @@ Widget _buildHomeContext(BuildContext context) {
                           style: TextStyle(color: Colors.white),
                         ),
                         Text('10/100'),
-                        // LinearProgressIndicator(
-                        //   minHeight: 5,
-                        //   value: 50 / 100,
-                        //   backgroundColor: Color(0xff006442),
-                        // )
+                        linierIndicator(Colors.white, 0.5, 1, 100),
                         Text(
                           '90% Stars to next Reward',
                           style: TextStyle(color: Colors.white),

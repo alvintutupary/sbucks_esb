@@ -57,7 +57,7 @@ class _BannerSliderState extends State<BannerSlider> {
           return Container(
             width: 8.0,
             height: 8.0,
-            margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+            margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 2.0),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: _current == index

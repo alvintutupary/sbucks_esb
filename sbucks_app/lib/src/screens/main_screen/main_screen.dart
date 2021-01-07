@@ -12,7 +12,7 @@ import 'package:sbucks/src/screens/reward_screen/reward_screen.dart';
 import 'package:sbucks/src/screens/store_screen/store_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  static const kRouteName = '/';
+  static const kRouteName = '/main';
   @override
   _MainScreenState createState() => _MainScreenState();
 }

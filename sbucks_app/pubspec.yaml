@@ -17,11 +17,14 @@ dependencies:
   pin_code_fields: ^6.0.2
   flare_flutter: ^2.0.6
   bubbled_navigation_bar: ^0.0.4
+  barcode: ^1.17.1
+  flutter_inappwebview: ^4.0.0+4
+  flutter_statusbarcolor:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  device_preview: ^0.5.5
+  device_preview: 0.4.5
 
 flutter:
   uses-material-design: true

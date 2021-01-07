@@ -175,10 +175,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     circularRadius: 0,
                     onPressed: () {
-                      Navigator.pushNamed(context, RegisterOTP.kRouteName);
                       if (_formKey.currentState.validate()) {
+                        Navigator.pushNamed(context, RegisterOTP.kRouteName);
                         _formKey.currentState.save();
-                        print("""
+                      }
+                      print("""
                         phoneField : $_phone,\n
                         emailField : $_email,\n
                         passwordField : $_password,\n
@@ -188,7 +189,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         dateOfBirthField : $_dateOfBirth,\n
                         favoriteBaverageField : $_favoriteBaverage,\n
                               """);
-                      }
                     },
                   ),
                 ],

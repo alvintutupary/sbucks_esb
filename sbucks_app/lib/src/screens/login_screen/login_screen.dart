@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sbucks/src/widgets/common/app_spacer.dart';
 import 'package:sbucks/src/widgets/common/app_text_field.dart';
 import 'package:sbucks/src/widgets/common/wide_button.dart';
 
@@ -30,42 +31,59 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: buildInputDecoration(hintText: "Password", icon: Icons.lock),
     );
 
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/img/bg-2.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                emailField,
-                passwordField,
-                WideButton(
-                  color: Color(0xff006442),
-                  flatButton: true,
-                  child: Text(
-                    'Sign Up',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  circularRadius: 0,
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                    }
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+    // return Scaffold(
+    //   backgroundColor: Color(0x80000000),
+    //   body: Container(
+    //     height: MediaQuery.of(context).size.height,
+    //     decoration: BoxDecoration(
+    //       image: DecorationImage(
+    //         image: AssetImage('assets/img/bg-2.jpg'),
+    //         fit: BoxFit.cover,
+    //       ),
+    //     ),
+    //     child: Container(
+    //       child: Padding(
+    //         padding: const EdgeInsets.symmetric(horizontal: 20.0),
+    //         child: Card(
+    //           child: Column(
+    //             mainAxisSize: MainAxisSize.min,
+    //             mainAxisAlignment: MainAxisAlignment.center,
+    //             children: [
+    //               emailField,
+    //               passwordField,
+    //               WideButton(
+    //                 color: Color(0xff006442),
+    //                 flatButton: true,
+    //                 child: Text(
+    //                   'Sign Up',
+    //                   style: TextStyle(
+    //                       color: Colors.white, fontWeight: FontWeight.bold),
+    //                 ),
+    //                 circularRadius: 0,
+    //                 onPressed: () {
+    //                   if (_formKey.currentState.validate()) {
+    //                     _formKey.currentState.save();
+    //                   }
+    //                 },
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('Login'),
+        AppSpacer.vSpacing(5),
+        emailField,
+        AppSpacer.vSpacing(5),
+        passwordField,
+      ],
     );
   }
 }

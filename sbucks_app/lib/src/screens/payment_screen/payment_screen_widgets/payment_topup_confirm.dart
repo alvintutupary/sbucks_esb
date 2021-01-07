@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sbucks/src/widgets/common/wide_button.dart';
+import 'package:sbucks/src/screens/payment_screen/payment_screen_widgets/payment_chose_bank.dart';
 
 class PaymentTopupConfirm extends StatefulWidget {
   static const kRouteName = '/payment-topup-confirm';
@@ -125,7 +126,9 @@ class _PaymentTopupConfirmState extends State<PaymentTopupConfirm> {
       floatingActionButton: FloatingActionButton.extended(
         label: Text('Continue'),
         backgroundColor: Colors.green[800],
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, PaymentChoseBank.kRouteName);
+        },
       ),
     );
   }

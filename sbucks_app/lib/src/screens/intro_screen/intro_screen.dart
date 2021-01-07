@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sbucks/src/screens/login_screen/login_screen.dart';
 import 'package:sbucks/src/screens/register_screen/register_screen.dart';
+import 'package:sbucks/src/screens/register_screen/register_screen_widgets/register_otp.dart';
 import 'package:sbucks/src/utils/style.dart';
+import 'package:sbucks/src/utils/size_config.dart';
 import 'package:sbucks/src/widgets/common/wide_button.dart';
+import 'package:sbucks/src/widgets/common/app_spacer.dart';
+import 'package:sbucks/src/widgets/custom_dialog.dart';
 
 class _IntroItem {
   String imageUri;
@@ -64,30 +68,29 @@ class _IntroScreenState extends State<IntroScreen> {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(item.bgImageUri),
-          fit: BoxFit.cover,
-        ),
+            image: AssetImage(item.bgImageUri), fit: BoxFit.cover),
       ),
       // color: Colors.transparent,
       padding: EdgeInsets.only(
-        left: 8,
+        left: 8.sch,
         top: 0,
-        right: 8,
-        bottom: 150,
+        right: 8.sch,
+        bottom: 50.sch,
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
             padding: EdgeInsets.only(
-              left: 10,
-              right: 10,
+              left: 10.sch,
+              right: 10.sch,
               bottom: 5,
               top: 52,
             ),
             child: Image.asset(
               item.imageUri,
-              height: 285,
+              fit: BoxFit.cover,
+              scale: 1.scs,
             ),
           ),
           Column(
@@ -95,7 +98,7 @@ class _IntroScreenState extends State<IntroScreen> {
               Text(
                 item.title,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 50),
+                style: TextStyle(color: Colors.white, fontSize: 50.scs),
               ),
               Padding(
                 padding: EdgeInsets.all(15.0),
@@ -103,7 +106,7 @@ class _IntroScreenState extends State<IntroScreen> {
               Text(
                 item.subtitle,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: TextStyle(color: Colors.white, fontSize: 20.scs),
               ),
             ],
           )
@@ -161,14 +164,13 @@ class _IntroScreenState extends State<IntroScreen> {
             ),
             circularRadius: 0,
             onPressed: () {
-              // appBloc.finishFirstRun();
-              Navigator.pushReplacementNamed(
-                context,
-                LoginScreen.kRouteName,
-              );
+              CustomDialog.optionDialog(context, widget: LoginScreen(),
+                  function: () {
+                Navigator.popAndPushNamed(context, RegisterOTP.kRouteName);
+              }, yesText: 'Ya', noText: 'Tidak');
             },
           ),
-          // AppSpacer.vSpacing(8),
+          AppSpacer.vSpacing(5),
           WideButton(
             borderSide: BorderSide(
               color: AppColor.kLoginRegisterBorder,
@@ -231,7 +233,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 Positioned(
                   left: 0,
                   right: 0,
-                  top: 20,
+                  top: 20.sch,
                   child: _buildIndicator(),
                 ),
                 Positioned(
