@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sbucks/src/screens/home_screen/home_screen_widgets/banner_slider.dart';
 import 'package:sbucks/src/screens/home_screen/home_screen_widgets/list_menu.dart';
 import 'package:sbucks/src/screens/home_screen/home_screen_widgets/linier_indicator.dart';
+import 'package:sbucks/src/screens/profile_screen/profile_screen.dart';
+import 'package:sbucks/src/widgets/common/star_text.dart';
 
 class HomeScreen extends StatefulWidget {
   static const kRouteName = '/';
@@ -17,20 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: HOME',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: PAY',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: REWARD',
-      style: optionStyle,
-    ),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -88,13 +76,19 @@ Widget _buildHomeContext(BuildContext context) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2),
-                    child: Icon(Icons.person),
-                  ),
-                  Text('Profile')
-                ]),
+                InkWell(
+                  child: Row(children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                      child: Icon(Icons.person),
+                    ),
+                    Text('Profile')
+                  ]),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => ProfileScreen()));
+                  },
+                ),
                 Row(children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -137,20 +131,28 @@ Widget _buildHomeContext(BuildContext context) {
                       ],
                     ),
                   ),
-                  Container(
-                      child: Column(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        size: 50,
-                        color: Colors.teal[900],
-                      ),
-                      Text(
-                        'Rewards',
-                        style: TextStyle(color: Colors.white),
-                      )
-                    ],
-                  )),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: StarText(
+                      size: 15,
+                      value: '0',
+                      text: 'Rewards',
+                    ),
+                  ),
+                  // Container(
+                  //     child: Column(
+                  //   children: [
+                  //     Icon(
+                  //       Icons.star,
+                  //       size: 50,
+                  //       color: Colors.teal[900],
+                  //     ),
+                  //     Text(
+                  //       'Rewards',
+                  //       style: TextStyle(color: Colors.white),
+                  //     )
+                  //   ],
+                  // )),
                   Text(
                     '290 Stars to Gold Tier',
                     style: TextStyle(color: Colors.white),

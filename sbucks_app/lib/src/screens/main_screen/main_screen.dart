@@ -10,6 +10,7 @@ import 'package:sbucks/src/screens/menu_screen/menu_screen.dart';
 import 'package:sbucks/src/screens/payment_screen/payment_screen.dart';
 import 'package:sbucks/src/screens/reward_screen/reward_screen.dart';
 import 'package:sbucks/src/screens/store_screen/store_screen.dart';
+import 'package:sbucks/src/screens/test_aja.dart';
 
 class MainScreen extends StatefulWidget {
   static const kRouteName = '/main';
@@ -23,7 +24,8 @@ class _MainScreenState extends State<MainScreen> {
     ..add(MainMenuModel(PaymentScreen(), 'PAY', Icons.payment))
     ..add(MainMenuModel(RewardScreen(), 'REWARD', Icons.star))
     ..add(MainMenuModel(MenuScreen(), 'MENU', Icons.restaurant_menu))
-    ..add(MainMenuModel(StoreScreen(), 'STORE', Icons.store));
+    ..add(MainMenuModel(StoreScreen(), 'STORE', Icons.store))
+    ..add(MainMenuModel(TestAja(), 'TEST', Icons.trip_origin));
 
   PageController _pageController;
   MenuPositionController _menuPositionController;

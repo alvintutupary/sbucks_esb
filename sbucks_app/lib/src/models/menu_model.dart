@@ -25,11 +25,11 @@ class MenuCategoryDetailModel {
 class MenuDetailModel {
   String imageUri;
   String title;
-  String description;
+  String descriptionUri;
 
   MenuDetailModel(
     this.imageUri,
     this.title,
-    this.description,
+    this.descriptionUri,
   );
 }

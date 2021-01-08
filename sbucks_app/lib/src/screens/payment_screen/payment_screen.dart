@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sbucks/src/screens/payment_add_screen/payment_add_screen.dart';
+import 'package:sbucks/src/screens/payment_report_lost_card_screen/payment_report_lost_card_screen.dart';
 import 'package:sbucks/src/screens/payment_screen/payment_screen_widgets/payment_topup.dart';
+import 'package:sbucks/src/screens/payment_virtual_account_screen/payment_virtual_account_screen.dart';
 
 class PaymentScreen extends StatefulWidget {
   static const kRouteName = '/payment';
@@ -16,6 +19,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           bottom: TabBar(
+            isScrollable: true,
             labelColor: Color(0xff006442),
             indicatorColor: Color(0xff006442),
             tabs: [
@@ -28,12 +32,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
           title: Text('Starbucks Card'),
         ),
         body: TabBarView(
-          physics: NeverScrollableScrollPhysics(),
+          // physics: NeverScrollableScrollPhysics(),
           children: [
             PayTab(),
-            Icon(Icons.directions_transit),
-            Icon(Icons.directions_bike),
-            Icon(Icons.directions_bike),
+            PaymentAddScreen(),
+            PaymentVirtualAccountScreen(),
+            PaymentReportLostCardScreen(),
           ],
         ),
       ),

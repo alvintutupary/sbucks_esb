@@ -60,30 +60,30 @@ class DummyData {
   static final menuDetails = List<MenuDetailModel>()
     ..add(
       MenuDetailModel('assets/img/menu-s-1.jpg', 'Title 2',
-          'Ini description harusnya panjang 1'),
+          'https://qoqi.co.id/kebijakan-privasi.html'),
     )
     ..add(
       MenuDetailModel('assets/img/menu-s-2.jpg', 'Title 3',
-          'Ini description harusnya panjang 2'),
+          'https://qoqi.co.id/kebijakan-privasi.html'),
     )
     ..add(
       MenuDetailModel('assets/img/menu-s-3.jpg', 'Title 4',
-          'Ini description harusnya panjang 3'),
+          'https://qoqi.co.id/kebijakan-privasi.html'),
     )
     ..add(
       MenuDetailModel('assets/img/menu-s-3.jpg', 'Title 4',
-          'Ini description harusnya panjang 4'),
+          'https://qoqi.co.id/kebijakan-privasi.html'),
     )
     ..add(
       MenuDetailModel('assets/img/menu-s-3.jpg', 'Title 4',
-          'Ini description harusnya panjang 5'),
+          'https://qoqi.co.id/kebijakan-privasi.html'),
     )
     ..add(
       MenuDetailModel('assets/img/menu-s-4.jpg', 'Title 4',
-          'Ini description harusnya panjang 6'),
+          'https://qoqi.co.id/kebijakan-privasi.html'),
     )
     ..add(
       MenuDetailModel('assets/img/menu-s-3.jpg', 'Title 5',
-          'Ini description harusnya panjang 7'),
+          'https://qoqi.co.id/kebijakan-privasi.html'),
     );
 }

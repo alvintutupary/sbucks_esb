@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:sbucks/src/models/menu_model.dart';
 import 'package:sbucks/src/utils/size_config.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MenuDetail extends StatefulWidget {
   static final kRouteName = '/menuDetail';
@@ -11,6 +13,14 @@ class MenuDetail extends StatefulWidget {
 }
 
 class _MenuDetailState extends State<MenuDetail> {
+  double _loadingProgress;
+
+  @override
+  void initState() {
+    _loadingProgress = 0;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final _height = MediaQuery.of(context).size.width / 2;
@@ -36,12 +46,57 @@ class _MenuDetailState extends State<MenuDetail> {
       body: Column(
         children: [
           Container(
-            width: double.infinity,
-            child: Image.asset(widget.data.imageUri),
+            alignment: Alignment.bottomRight,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage(widget.data.imageUri))),
+            height: MediaQuery.of(context).size.width / 2,
+            width: MediaQuery.of(context).size.width,
+            child: Text(widget.data.title,
+                style: TextStyle(
+                    fontSize: 25.scs,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold)),
           ),
-          Text(widget.data.description)
+          Expanded(
+            child: InAppWebView(
+              initialUrl: widget.data.descriptionUri,
+              initialOptions: InAppWebViewGroupOptions(
+                crossPlatform: InAppWebViewOptions(
+                  cacheEnabled: false,
+                  clearCache: true,
+                  useShouldOverrideUrlLoading: true,
+                ),
+              ),
+              onProgressChanged: (_, value) {
+                setState(() {
+                  _loadingProgress = value / 100;
+                  if (_loadingProgress >= 1) {
+                    _loadingProgress = 0;
+                  }
+                });
+              },
+              shouldOverrideUrlLoading: _handleUrlChanged,
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  Future<ShouldOverrideUrlLoadingAction> _handleUrlChanged(
+      _, ShouldOverrideUrlLoadingRequest request) async {
+    final url = request.url;
+
+    if (url != widget.data.descriptionUri) {
+      if (await canLaunch(url)) {
+        await launch(url);
+      }
+
+      return ShouldOverrideUrlLoadingAction.CANCEL;
+    }
+
+    return ShouldOverrideUrlLoadingAction.ALLOW;
   }
 }

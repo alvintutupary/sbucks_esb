@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sbucks/src/screens/reward_screen/reward_screen_widgets/reward_benefit.dart';
 import 'package:sbucks/src/utils/size_config.dart';
 
 class RewardScreen extends StatefulWidget {
@@ -68,17 +69,20 @@ class _RewardScreenState extends State<RewardScreen> {
           ),
           Text('Reward and Benefits',
               style: TextStyle(color: Colors.white, fontSize: 15.scs)),
-          ListTile(
-            title: Text('Information On Benefits',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.scs,
-                    fontWeight: FontWeight.bold)),
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
-            ),
-          ),
+          InkWell(
+              child: ListTile(
+                title: Text('Information On Benefits',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.scs,
+                        fontWeight: FontWeight.bold)),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => RewardBenefit()))),
           Divider(
             height: 5,
             color: Colors.white,

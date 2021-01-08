@@ -20,6 +20,8 @@ dependencies:
   barcode: ^1.17.1
   flutter_inappwebview: ^4.0.0+4
   flutter_statusbarcolor:
+  url_launcher: ^5.7.10
+  uuid: ^2.2.2
 
 dev_dependencies:
   flutter_test:
