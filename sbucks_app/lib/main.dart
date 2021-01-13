@@ -1,20 +1,24 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as orientaion;
-import 'package:sbucks/src/screens/intro_screen/intro_screen.dart';
-import 'package:sbucks/src/screens/main_screen/main_screen.dart';
-import 'package:sbucks/src/screens/payment_screen/payment_screen_widgets/payment_chose_bank.dart';
 import 'package:sbucks/routes.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:sbucks/src/screens/store_screen/store_screen.dart';
 import 'package:sbucks/src/utils/size_config.dart';
 import 'package:sbucks/src/utils/style.dart';
+import 'package:sbucks/testapica.dart';
+import 'package:sbucks/src/screens/premium_screen/premium_screen.dart';
+import 'package:sbucks/src/screens/intro_screen/intro_screen.dart';
+import 'package:sbucks/src/screens/test_aja.dart';
 
-void main() => runApp(
-      DevicePreview(
-        enabled: !kReleaseMode,
-        builder: (context) => MyApp(), // Wrap your app
-      ),
-    );
+void main() {
+  return runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -25,19 +29,20 @@ class MyApp extends StatelessWidget {
       title: 'Star Bucks App',
       theme: ThemeData(
         fontFamily: 'Nunito Sans',
-        // primaryColor: AppColor.kPrimaryColor,
+        primaryColor: Colors.white, //AppColor.kPrimaryColor,
         // accentColor: AppColor.kBrandColor,
         // canvasColor: Colors.transparent,
         // splashColor: AppColor.kPrimaryColor,
         appBarTheme: AppBarTheme(
           brightness: Brightness.light,
+
           // color: Colors.black,
           // iconTheme: IconThemeData(color: Colors.black),
         ),
         buttonTheme: ButtonThemeData(
           disabledColor: AppColor.kButtonDisabledBackground,
           // buttonColor: AppColor.kPrimaryColor,
-          // textTheme: ButtonTextTheme.primary,
+          textTheme: ButtonTextTheme.primary,
           // splashColor: AppColor.kPrimaryColor,
         ),
         // visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:sbucks/src/blocs/barcode_bloc.dart';
 import 'package:sbucks/src/screens/home_screen/home_screen.dart';
 import 'package:sbucks/src/screens/main_screen/main_screen.dart';
 import 'package:sbucks/src/widgets/common/wide_button.dart';
@@ -49,6 +50,7 @@ class _RegisterOTPState extends State<RegisterOTP> {
   static Color _color = Color(0xff006442);
   @override
   Widget build(BuildContext context) {
+    // BarcodeBloc().buildBarcode('8080989800');
     return Scaffold(
       backgroundColor: Colors.white,
       key: scaffoldKey,

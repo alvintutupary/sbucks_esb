@@ -29,8 +29,8 @@ class AppConstant {
   static const kCSWAUrl = '6285289000790';
   static const kPrivacyPolicyUrl = 'https://qoqi.co.id/kebijakan-privasi.html';
   static const kTermsConditionUrl = 'https://qoqi.co.id/syarat-ketentuan.html';
-  static const kHelpUrl =
-      'https://tawk.to/chat/5ee386bb9e5f694422907161/default';
+  static const kFaq = 'https://qoqi.co.id/syarat-ketentuan.html';
+  static const kContactUs = 'https://qoqi.co.id/syarat-ketentuan.html';
 
   // static const kHttpBaseUrl = EnvironmentConfig.API_URL;
   // static const kHttpBaseUrl = 'https://qoqi.co.id/api/web/';

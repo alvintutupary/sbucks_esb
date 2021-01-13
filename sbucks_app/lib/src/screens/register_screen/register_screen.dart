@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sbucks/src/widgets/common/app_spacer.dart';
 import 'package:sbucks/src/widgets/common/app_text_field.dart';
 import 'package:sbucks/src/widgets/common/wide_button.dart';
+import 'package:sbucks/src/utils/size_config.dart';
 import 'package:sbucks/src/screens/register_screen/register_screen_widgets/register_otp.dart';
 import 'package:sbucks/src/screens/register_screen/register_screen_widgets/register_agreement.dart';
 
@@ -99,87 +101,90 @@ class _RegisterScreenState extends State<RegisterScreen> {
     //   ],
     // );
 
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          padding: EdgeInsets.all(40.0),
-          child: ListView(children: <Widget>[
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 15.0),
-                  label("Please Input your Mobile phone number"),
-                  SizedBox(height: 5.0),
-                  phoneField,
-                  SizedBox(height: 15.0),
-                  label("Please input your account information"),
-                  SizedBox(height: 5.0),
-                  emailField,
-                  SizedBox(height: 5.0),
-                  passwordField,
-                  SizedBox(height: 5.0),
-                  confirmPasswordField,
-                  SizedBox(height: 15.0),
-                  label("Please input your personal  detail"),
-                  SizedBox(height: 5.0),
-                  firstNameField,
-                  SizedBox(height: 5.0),
-                  lastNameField,
-                  SizedBox(height: 5.0),
-                  dateOfBirthField,
-                  SizedBox(height: 5.0),
-                  favoriteBaverageField,
-                  SizedBox(height: 15.0),
-                  // Row(
-                  //   children: [
-                  //     Checkbox(
-                  //       onChanged: (value) {},
-                  //     ),
-                  //     Text('I agree with term and condition')
-                  //   ],
-                  // ),
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Checkbox(
-                        value: _isAgree,
-                        onChanged: (bool value) {
-                          setState(() {
-                            _isAgree = value;
-                          });
-                        },
-                      ),
-                      Text("I agree with this "),
-                      InkWell(
-                        child: Text('term and condition',
-                            style: TextStyle(color: Colors.blue)),
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              child: AlertDialog(
-                                content: RegisterAgreement(),
-                              ));
-                        },
-                      )
-                    ],
-                  ),
-                  WideButton(
-                    color: Color(0xff006442),
-                    flatButton: true,
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.symmetric(vertical: 20.sch, horizontal: 15.scw),
+        child: ListView(children: <Widget>[
+          Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppSpacer.vSpacing(15.0),
+                label("Please Input your Mobile phone number"),
+                AppSpacer.vSpacing(5.0),
+                phoneField,
+                AppSpacer.vSpacing(15.0),
+                label("Please input your account information"),
+                AppSpacer.vSpacing(5.0),
+                emailField,
+                AppSpacer.vSpacing(5.0),
+                passwordField,
+                AppSpacer.vSpacing(5.0),
+                confirmPasswordField,
+                AppSpacer.vSpacing(15.0),
+                label("Please input your personal  detail"),
+                AppSpacer.vSpacing(5.0),
+                firstNameField,
+                AppSpacer.vSpacing(5.0),
+                lastNameField,
+                AppSpacer.vSpacing(5.0),
+                dateOfBirthField,
+                AppSpacer.vSpacing(5.0),
+                favoriteBaverageField,
+                AppSpacer.vSpacing(15.0),
+                // Row(
+                //   children: [
+                //     Checkbox(
+                //       onChanged: (value) {},
+                //     ),
+                //     Text('I agree with term and condition')
+                //   ],
+                // ),
+                Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Checkbox(
+                      value: _isAgree,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _isAgree = value;
+                        });
+                      },
                     ),
-                    circularRadius: 0,
-                    onPressed: () {
-                      if (_formKey.currentState.validate()) {
-                        Navigator.pushNamed(context, RegisterOTP.kRouteName);
-                        _formKey.currentState.save();
-                      }
-                      print("""
+                    Text(
+                      "I agree with this ",
+                      style: TextStyle(fontSize: 14.scs),
+                    ),
+                    InkWell(
+                      child: Text('term and condition',
+                          style:
+                              TextStyle(color: Colors.blue, fontSize: 14.scs)),
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            child: AlertDialog(
+                              content: RegisterAgreement(),
+                            ));
+                      },
+                    )
+                  ],
+                ),
+                WideButton(
+                  color: Color(0xff006442),
+                  flatButton: true,
+                  child: Text(
+                    'Sign Up',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  circularRadius: 0,
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      Navigator.pushNamed(context, RegisterOTP.kRouteName);
+                      _formKey.currentState.save();
+                    }
+                    print("""
                         phoneField : $_phone,\n
                         emailField : $_email,\n
                         passwordField : $_password,\n
@@ -189,13 +194,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         dateOfBirthField : $_dateOfBirth,\n
                         favoriteBaverageField : $_favoriteBaverage,\n
                               """);
-                    },
-                  ),
-                ],
-              ),
+                  },
+                ),
+              ],
             ),
-          ]),
-        ),
+          ),
+        ]),
       ),
     );
   }

@@ -12,6 +12,8 @@ import 'package:sbucks/src/screens/payment_screen/payment_screen_widgets/payment
 import 'package:sbucks/src/screens/payment_screen/payment_screen_widgets/payment_chose_bank.dart';
 import 'package:sbucks/src/screens/payment_screen/payment_screen_widgets/payment_bank.dart';
 import 'package:sbucks/src/screens/reward_screen/reward_screen.dart';
+import 'package:sbucks/src/screens/tutorial_screen/tutorial_screen.dart';
+import 'package:sbucks/src/screens/inbox_screen/inbox_screen.dart';
 
 Route<dynamic> generateRoutes(RouteSettings settings) {
   // AppTextStyle.setStatusBarColor(AppColor.kStatusBarAccentColor, false);
@@ -51,6 +53,11 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
           ));
     case RewardScreen.kRouteName:
       return _buildMaterialPageRoute(RewardScreen.kRouteName, RewardScreen());
+    case TutorialScreen.kRouteName:
+      return _buildMaterialPageRoute(
+          TutorialScreen.kRouteName, TutorialScreen());
+    case InboxScreen.kRouteName:
+      return _buildMaterialPageRoute(InboxScreen.kRouteName, InboxScreen());
 
     default:
       return null;

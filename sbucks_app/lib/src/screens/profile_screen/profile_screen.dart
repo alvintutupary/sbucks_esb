@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sbucks/src/screens/personal_screen/personal_screen.dart';
 import 'package:sbucks/src/screens/reward_screen/reward_screen.dart';
+import 'package:sbucks/src/screens/setting_screen/setting_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -25,7 +26,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Navigator.push(
                   context, MaterialPageRoute(builder: (_) => PersonalScreen()));
             }),
-            _buildMenuProfile('Settings', Icons.settings, () {}),
+            _buildMenuProfile('Settings', Icons.settings, () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => SettingScreen()));
+            }),
           ],
         ));
   }

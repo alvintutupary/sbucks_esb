@@ -56,12 +56,6 @@ class _IntroScreenState extends State<IntroScreen> {
       'assets/img/bg-4.jpg',
       'Find a Store',
       'Search for a store near you and\nget turn by turn directions',
-    ))
-    ..add(_IntroItem(
-      'assets/img/icon-5.PNG',
-      'assets/img/bg-5.jpg',
-      '',
-      '',
     ));
 
   Widget _buildContent(_IntroItem item) {
@@ -135,16 +129,6 @@ class _IntroScreenState extends State<IntroScreen> {
     );
   }
 
-  // void _showLoginDialog() async {
-  //   final user = await Navigator.pushNamed(
-  //       context, RegisterScreen.kRouteName); //as User;
-  //   if (user != null) {
-  //     // appBloc.finishFirstRun();
-  //     // appBloc.changeUser(user);
-  //     // Navigator.pushReplacementNamed(context, MainScreen.kRouteName);
-  //   }
-  // }
-
   Widget _buildButtons() {
     final isLastIndex =
         _introItems[_current] == _introItems[_introItems.length - 1];
@@ -158,38 +142,15 @@ class _IntroScreenState extends State<IntroScreen> {
             color: Color(0xff006442),
             flatButton: true,
             child: Text(
-              'SignIn',
+              'Finish',
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             circularRadius: 0,
-            onPressed: () {
-              CustomDialog.optionDialog(context, widget: LoginScreen(),
-                  function: () {
-                Navigator.popAndPushNamed(context, RegisterOTP.kRouteName);
-              }, yesText: 'Ya', noText: 'Tidak');
-            },
+            onPressed: () =>
+                Navigator.pushNamed(context, LoginScreen.kRouteName),
           ),
           AppSpacer.vSpacing(5),
-          WideButton(
-            borderSide: BorderSide(
-              color: AppColor.kLoginRegisterBorder,
-            ),
-            circularRadius: 0,
-            flatButton: true,
-            color: AppColor.kPrimaryBackground,
-            child: Text(
-              'Join Now',
-              style: TextStyle(
-                  color: Color(0xff006442), fontWeight: FontWeight.w900),
-            ),
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                RegisterScreen.kRouteName,
-              );
-            },
-          ),
         ],
       ),
       crossFadeState:

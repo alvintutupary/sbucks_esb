@@ -4,6 +4,36 @@ import 'package:flutter/widgets.dart';
 enum DialogAction { yes, abort }
 
 class CustomDialog {
+  static Future<DialogAction> common(BuildContext context,
+      {Widget title,
+      Widget widget,
+      Function function,
+      bool barrierDismissible = true}) async {
+    final action = await showDialog(
+        context: context,
+        barrierDismissible: barrierDismissible,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            contentPadding: EdgeInsets.symmetric(horizontal: 0),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                title,
+                Divider(
+                  color: Colors.black,
+                  thickness: 2,
+                ),
+                widget,
+              ],
+            ),
+            // shape:
+            //     RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          );
+        });
+
+    return (action != null) ? action : DialogAction.abort;
+  }
+
   static Future<DialogAction> optionDialog(BuildContext context,
       {Widget widget,
       Function function,

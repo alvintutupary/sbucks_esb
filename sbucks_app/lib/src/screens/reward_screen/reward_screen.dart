@@ -59,7 +59,8 @@ class _RewardScreenState extends State<RewardScreen> {
               children: [
                 Text('90 Stars to next Reward',
                     style: TextStyle(color: Colors.white, fontSize: 20.scs)),
-                _linierIndicator(Colors.green, .1, 10, double.infinity)
+                _linierIndicator(
+                    Colors.green, .1, 30.scs, MediaQuery.of(context).size.width)
               ],
             ),
           ),
@@ -96,10 +97,33 @@ class _RewardScreenState extends State<RewardScreen> {
       Container(
         height: height,
         width: width,
-        child: LinearProgressIndicator(
-          value: value,
-          valueColor: AlwaysStoppedAnimation<Color>(color),
-          backgroundColor: color.withOpacity(.5),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(100)),
+              child: LinearProgressIndicator(
+                value: value,
+                valueColor: new AlwaysStoppedAnimation<Color>(color),
+                backgroundColor: color.withOpacity(.5),
+                minHeight: height,
+              ),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '10',
+                  style: TextStyle(fontSize: height * 0.8, color: Colors.white),
+                ),
+                Icon(
+                  Icons.star,
+                  size: height * 0.8,
+                  color: Colors.white,
+                )
+              ],
+            ),
+          ],
         ),
       );
 }

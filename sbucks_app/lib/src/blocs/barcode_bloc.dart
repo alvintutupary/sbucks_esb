@@ -10,6 +10,7 @@ void buildBarcode(
   double height,
   double fontHeight,
 }) {
+  /// Create the Barcode
   final svg = bc.toSvg(
     data,
     width: width ?? 200,

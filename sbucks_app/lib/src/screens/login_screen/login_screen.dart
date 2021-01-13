@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sbucks/src/blocs/barcode_bloc.dart';
+import 'package:sbucks/src/screens/register_screen/register_screen.dart';
+import 'package:sbucks/src/screens/register_screen/register_screen_widgets/register_otp.dart';
+import 'package:sbucks/src/utils/style.dart';
 import 'package:sbucks/src/widgets/common/app_spacer.dart';
 import 'package:sbucks/src/widgets/common/app_text_field.dart';
-import 'package:sbucks/src/widgets/common/wide_button.dart';
 
 class LoginScreen extends StatefulWidget {
   static const kRouteName = '/login';
@@ -30,60 +33,68 @@ class _LoginScreenState extends State<LoginScreen> {
       onSaved: (value) => _password = value,
       decoration: buildInputDecoration(hintText: "Password", icon: Icons.lock),
     );
-
-    // return Scaffold(
-    //   backgroundColor: Color(0x80000000),
-    //   body: Container(
-    //     height: MediaQuery.of(context).size.height,
-    //     decoration: BoxDecoration(
-    //       image: DecorationImage(
-    //         image: AssetImage('assets/img/bg-2.jpg'),
-    //         fit: BoxFit.cover,
-    //       ),
-    //     ),
-    //     child: Container(
-    //       child: Padding(
-    //         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-    //         child: Card(
-    //           child: Column(
-    //             mainAxisSize: MainAxisSize.min,
-    //             mainAxisAlignment: MainAxisAlignment.center,
-    //             children: [
-    //               emailField,
-    //               passwordField,
-    //               WideButton(
-    //                 color: Color(0xff006442),
-    //                 flatButton: true,
-    //                 child: Text(
-    //                   'Sign Up',
-    //                   style: TextStyle(
-    //                       color: Colors.white, fontWeight: FontWeight.bold),
-    //                 ),
-    //                 circularRadius: 0,
-    //                 onPressed: () {
-    //                   if (_formKey.currentState.validate()) {
-    //                     _formKey.currentState.save();
-    //                   }
-    //                 },
-    //               ),
-    //             ],
-    //           ),
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text('Login'),
-        AppSpacer.vSpacing(5),
-        emailField,
-        AppSpacer.vSpacing(5),
-        passwordField,
-      ],
+    return Scaffold(
+      backgroundColor: AppColor.kPrimaryBackground,
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/img/bg-5.jpg'), fit: BoxFit.cover),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    RaisedButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, RegisterScreen.kRouteName),
+                      child: Text('Join Now'),
+                    ),
+                    RaisedButton(
+                      onPressed: () => showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          child: AlertDialog(
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('Login'),
+                                AppSpacer.vSpacing(5),
+                                emailField,
+                                AppSpacer.vSpacing(5),
+                                passwordField,
+                                AppSpacer.vSpacing(10),
+                                Row(
+                                  children: [
+                                    FlatButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text('Cancel')),
+                                    FlatButton(
+                                        onPressed: () {
+                                          return Navigator.pushNamed(
+                                              context, RegisterOTP.kRouteName);
+                                        },
+                                        child: Text('Submit'))
+                                  ],
+                                )
+                              ],
+                            ),
+                          )),
+                      child: Text('Sign In'),
+                    ),
+                  ],
+                )),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -3,7 +3,11 @@ import 'package:sbucks/src/screens/home_screen/home_screen_widgets/banner_slider
 import 'package:sbucks/src/screens/home_screen/home_screen_widgets/list_menu.dart';
 import 'package:sbucks/src/screens/home_screen/home_screen_widgets/linier_indicator.dart';
 import 'package:sbucks/src/screens/profile_screen/profile_screen.dart';
+import 'package:sbucks/src/screens/inbox_screen/inbox_screen.dart';
+import 'package:sbucks/src/screens/ecode_screen/ecode_screen.dart';
 import 'package:sbucks/src/widgets/common/star_text.dart';
+import 'package:barcode_widget/barcode_widget.dart';
+import 'package:sbucks/src/utils/size_config.dart';
 
 class HomeScreen extends StatefulWidget {
   static const kRouteName = '/';
@@ -89,20 +93,31 @@ Widget _buildHomeContext(BuildContext context) {
                         MaterialPageRoute(builder: (_) => ProfileScreen()));
                   },
                 ),
-                Row(children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2),
-                    child: Icon(Icons.mail),
-                  ),
-                  Text('Inbox')
-                ]),
-                Row(children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2),
-                    child: Icon(Icons.label),
-                  ),
-                  Text('E-Code')
-                ]),
+                InkWell(
+                  child: Row(children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                      child: Icon(Icons.mail),
+                    ),
+                    Text('Inbox')
+                  ]),
+                  onTap: () =>
+                      Navigator.pushNamed(context, InboxScreen.kRouteName),
+                ),
+                InkWell(
+                  child: Row(children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                      child: Icon(Icons.label),
+                    ),
+                    Text('E-Code')
+                  ]),
+                  onTap: () => showDialog(
+                      context: context,
+                      child: AlertDialog(
+                        content: ECodeScreen(),
+                      )),
+                ),
               ],
             ),
           ),
@@ -180,19 +195,21 @@ Widget _buildHomeContext(BuildContext context) {
                     style: TextStyle(fontSize: 14),
                     textAlign: TextAlign.center,
                   ),
-                  content: Image.asset(
-                    'assets/img/barcode.jpg',
-                    height: 100,
-                    width: MediaQuery.of(context).size.width,
+                  content: BarcodeWidget(
+                    barcode: Barcode.pdf417(),
+                    data: '6232020671965087',
+                    drawText: true,
+                    height: 50.sch,
+                    width: 400.scw,
                   ),
-                  // actions: <Widget>[
-                  //   FlatButton(
-                  //     child: Text('Close me!'),
-                  //     onPressed: () {
-                  //       Navigator.of(context).pop();
-                  //     },
-                  //   )
-                  // ],
+                  actions: [
+                    FlatButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text(
+                          'Done',
+                          textAlign: TextAlign.center,
+                        ))
+                  ],
                 ));
       },
     ),
