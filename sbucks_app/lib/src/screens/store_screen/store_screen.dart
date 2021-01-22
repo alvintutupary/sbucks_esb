@@ -7,40 +7,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:sbucks/src/models/store_model.dart';
 import 'package:sbucks/src/screens/store_screen/store_screen_widgets/store_detail.dart';
 
-final datas = List<StoreModel>()
-  ..add(StoreModel(
-      1,
-      'Starbucks Bez Plaza Gading Serpong',
-      '''Jl. Gading Serpong Boulevard No.Sumarecon Mall Serpong, Jl. Gading Serpong Boulevard No.245, Pakulonan Bar., Kec. Klp. Dua, Tangerang, Banten 15810''',
-      'Monday',
-      '10:00',
-      'Sunday',
-      '22:00',
-      -6.258734,
-      106.620563))
-  ..add(StoreModel(
-      2,
-      'Starbucks 2 - Supermall Karawaci',
-      '''Jl. Gading Serpong Boulevard No.Sumarecon Mall Serpong, Jl. Gading Serpong Boulevard No.245, Pakulonan Bar., Kec. Klp. Dua, Tangerang, Banten 15810''',
-      'Monday',
-      '08:00',
-      'Friday',
-      '22:00',
-      -6.226583,
-      106.607870))
-  ..add(StoreModel(
-      2, 'Starbucks 2 - Supermall Karawaci', '''Jl. Gading Serpong Boulevard No.Sumarecon Mall Serpong, Jl. Gading Serpong Boulevard No.245, Pakulonan Bar., Kec. Klp. Dua, Tangerang, Banten 15810''', 'Monday', '08:00', 'Friday', '22:00', 37.4095, -122.0994))
-  ..add(StoreModel(
-      3,
-      'Starbucks Coffee Sumarecon Mall Serpong 2',
-      '''Jl. Gading Serpong Boulevard No.Sumarecon Mall Serpong, Jl. Gading Serpong Boulevard No.245, Pakulonan Bar., Kec. Klp. Dua, Tangerang, Banten 15810''',
-      'Monday',
-      '10:00',
-      'Saturday',
-      '20:00',
-      -6.226583,
-      106.607870));
-
 class StoreScreen extends StatefulWidget {
   @override
   State<StoreScreen> createState() => StoreScreenState();
@@ -48,7 +14,8 @@ class StoreScreen extends StatefulWidget {
 
 class StoreScreenState extends State<StoreScreen> {
   Completer<GoogleMapController> _controllerGoogleMap = Completer();
-  String _search;
+  final datas = StoreModel();
+  String search;
 
   GoogleMapController newGoogleMapController;
 
@@ -78,13 +45,13 @@ class StoreScreenState extends State<StoreScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _markers = datas
+    final _markers = datas.outlet
         .map((data) => Marker(
-              markerId: MarkerId(data.name),
+              markerId: MarkerId(data.branchCode),
               position: LatLng(data.longitude, data.latitude),
               infoWindow: InfoWindow(
-                  title: data.name,
-                  snippet: data.name,
+                  title: data.branchName,
+                  snippet: data.distanceText,
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (_) => StoreDetail(data)));
@@ -96,7 +63,7 @@ class StoreScreenState extends State<StoreScreen> {
     final searchField = TextFormField(
       autofocus: false,
       validator: (value) => value.isEmpty ? "Please distric password" : null,
-      onSaved: (value) => _search = value,
+      onSaved: (value) => search = value,
       decoration: buildInputDecoration(hintText: "distric", icon: Icons.search),
     );
     return new Scaffold(
@@ -140,18 +107,18 @@ class StoreScreenState extends State<StoreScreen> {
           Expanded(
             // height: 340.sch,
             child: ListView.builder(
-              itemCount: datas.length,
+              itemCount: datas.outlet.length,
               itemBuilder: (context, index) => _buildListStore(
-                  datas[index].name,
-                  datas[index].address,
-                  datas[index].openDay,
-                  datas[index].openHour,
-                  datas[index].closeDay,
-                  datas[index].closeHour, onTap: () {
+                  datas.outlet[index].branchName,
+                  datas.outlet[index].branchName,
+                  datas.outlet[index].branchCode,
+                  datas.outlet[index].branchCode,
+                  datas.outlet[index].branchCode,
+                  datas.outlet[index].branchCode, onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => StoreDetail(datas[index])));
+                        builder: (_) => StoreDetail(datas.outlet[index])));
               }),
             ),
           )

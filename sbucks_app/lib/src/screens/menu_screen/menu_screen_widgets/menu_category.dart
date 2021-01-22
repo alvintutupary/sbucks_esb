@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sbucks/src/models/menu_model.dart';
 import 'package:sbucks/src/screens/menu_screen/menu_screen_widgets/menu_category_detail.dart';
 import 'package:sbucks/src/screens/menu_screen/menu_screen_widgets/menu_detail.dart';
+import 'package:sbucks/src/utils/constant.dart';
 import 'package:sbucks/src/utils/size_config.dart';
 
 class MenuCategory extends StatefulWidget {
@@ -21,13 +22,13 @@ class _MenuCategoryState extends State<MenuCategory> {
         title: Container(
           alignment: Alignment.centerLeft,
           child: Text(
-            widget.data.title,
+            widget.data.menuCategoryDesc,
             style: TextStyle(color: Colors.black, fontSize: 25.scs),
           ),
         ),
         backgroundColor: Colors.white,
       ),
-      body: _buildMenu(widget.data.menuCategoryDetailModels, _height),
+      body: _buildMenu(widget.data.menuCategoryDetails, _height),
     );
   }
 
@@ -45,14 +46,14 @@ class _MenuCategoryState extends State<MenuCategory> {
                     crossAxisCount: 2),
                 itemBuilder: (context, position) {
                   return _imageWithText(
-                    data[position].imageUri,
-                    '${data[position].title}',
+                    data[position].imageUri ?? AppConstant.kEmptyImage,
+                    '${data[position].menuCategoryDetailDesc}',
                     height,
                     function: () {
                       return Navigator.push(context,
                           MaterialPageRoute(builder: (_) {
                         return MenuCategoryDetail(
-                          data: widget.data.menuCategoryDetailModels[position],
+                          data: widget.data.menuCategoryDetails[position],
                         );
                       }));
                     },

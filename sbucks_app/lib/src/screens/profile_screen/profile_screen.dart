@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sbucks/src/screens/personal_screen/personal_screen.dart';
 import 'package:sbucks/src/screens/reward_screen/reward_screen.dart';
 import 'package:sbucks/src/screens/setting_screen/setting_screen.dart';
+import 'package:sbucks/src/screens/transaction_history_screen/transaction_history_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -18,7 +19,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: Column(
           children: [
             _buildMenuProfile(
-                'Card Transaction History', Icons.file_copy_outlined, () {}),
+                'Card Transaction History', Icons.file_copy_outlined, () {
+              Navigator.pushNamed(context, TransactionHistoryScreen.kRouteName);
+            }),
             _buildMenuProfile('Rewards', Icons.person, () {
               Navigator.pushNamed(context, RewardScreen.kRouteName);
             }),

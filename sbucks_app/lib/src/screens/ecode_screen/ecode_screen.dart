@@ -3,11 +3,10 @@ import 'package:sbucks/src/widgets/common/app_spacer.dart';
 import 'package:sbucks/src/widgets/common/app_text_field.dart';
 import 'package:sbucks/src/widgets/common/wide_button.dart';
 
-String _eCode;
-
 class ECodeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String _eCode;
     final eCodeField = TextFormField(
       autofocus: false,
       validator: (value) => value.isEmpty ? "Please enter ecode" : null,

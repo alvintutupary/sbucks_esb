@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:sbucks/src/screens/login_screen/login_screen.dart';
 import 'package:sbucks/src/widgets/custom_dialog.dart';
-import 'package:sbucks/src/screens/faq_screen/faq_screen.dart';
-import 'package:sbucks/src/screens/privacy_policy_screen/privacy_policy_screen.dart';
-import 'package:sbucks/src/screens/term_condition_screen/term_condition_screen.dart';
-import 'package:sbucks/src/screens/contact_us_screen/contact_us_screen.dart';
-import 'package:sbucks/src/screens/tutorial_screen/tutorial_screen.dart';
+import 'package:sbucks/src/utils/constant.dart';
+import 'package:sbucks/src/screens/static_screen/static_screen.dart';
+import 'package:sbucks/src/screens/intro_screen/intro_screen.dart';
+import 'package:sbucks/src/widgets/custom_divider.dart';
+import 'package:sbucks/src/widgets/common/app_spacer.dart';
+import 'package:sbucks/src/utils/size_config.dart';
+import 'package:sbucks/src/widgets/label_button.dart';
+import 'package:sbucks/src/utils/style.dart';
+import 'package:sbucks/src/blocs/app_bloc.dart';
 
 class SettingScreen extends StatefulWidget {
   @override
@@ -19,6 +23,18 @@ class _SettingScreenState extends State<SettingScreen> {
   void initState() {
     isSwitched = false;
     super.initState();
+  }
+
+  void doLogOut() async {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      child: AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        contentPadding: EdgeInsets.all(0),
+        content: SignOutDialog(),
+      ),
+    );
   }
 
   @override
@@ -79,25 +95,28 @@ class _SettingScreenState extends State<SettingScreen> {
             );
           }),
           _buildList('Faq', '', () {
-            return Navigator.push(
-                context, MaterialPageRoute(builder: (_) => FaqScreen()));
+            return Navigator.pushNamed(context, StaticScreen.kRouteName,
+                arguments: AppConstant.kFaqId);
           }),
           _buildList('Privacy Policy', '', () {
-            return Navigator.push(context,
-                MaterialPageRoute(builder: (_) => PrivacyPolicyScreen()));
+            return Navigator.pushNamed(context, StaticScreen.kRouteName,
+                arguments: AppConstant.kPrivacyId);
           }),
           _buildList('Terms & Condition', '', () {
-            return Navigator.push(context,
-                MaterialPageRoute(builder: (_) => TermConditionScreen()));
+            return Navigator.pushNamed(context, StaticScreen.kRouteName,
+                arguments: AppConstant.kTacId);
           }),
           _buildList('Contact Us', '', () {
-            return Navigator.push(
-                context, MaterialPageRoute(builder: (_) => ContactUsScreen()));
+            return Navigator.pushNamed(context, StaticScreen.kRouteName,
+                arguments: AppConstant.kContactUsId);
           }),
           _buildList('Tutorial', '',
-              () => Navigator.pushNamed(context, TutorialScreen.kRouteName)),
-          _buildList('Sign Out', 'tutuparyalvin@gmail.com',
-              () => Navigator.pushNamed(context, LoginScreen.kRouteName)),
+              () => Navigator.pushNamed(context, IntroScreen.kRouteName)),
+          _buildList(
+            'Sign Out',
+            'tutuparyalvin@gmail.com',
+            () => doLogOut(),
+          ),
           Text('App Version 3.0.8'),
         ],
       ),
@@ -109,19 +128,94 @@ class _SettingScreenState extends State<SettingScreen> {
     String text2,
     Function onTap,
   ) =>
-      InkWell(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      Column(
+        children: [
+          InkWell(
+            child: Padding(
+              padding: EdgeInsets.all(8.sch),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(text),
+                  Text(text2),
+                ],
+              ),
+            ),
+            onTap: onTap,
+          ),
+          // Divider(color: Colors.black),
+          CustomDivider(
+            color: Colors.black,
+            height: 1.scs,
+          )
+        ],
+      );
+}
+
+class SignOutDialog extends StatefulWidget {
+  @override
+  SignOutDialogState createState() => SignOutDialogState();
+}
+
+class SignOutDialogState extends State<SignOutDialog> {
+  final _formKey = new GlobalKey<FormState>();
+  bool isPasswordVisible;
+
+  @override
+  void initState() {
+    isPasswordVisible = false;
+    super.initState();
+  }
+
+  void doSignOut() async {
+    appBloc.clearPin();
+    Navigator.pushNamedAndRemoveUntil(
+        context, LoginScreen.kRouteName, (route) => false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          AppSpacer.vSpacing(10),
+          Text(
+            'Warning',
+            style: TextStyle(fontSize: 20.scs, fontWeight: FontWeight.bold),
+          ),
+          CustomDivider(
+            height: 2.sch,
+          ),
+          AppSpacer.vSpacing(5),
+          Text('Are you sure want to sign out?'),
+          AppSpacer.vSpacing(10),
+          Container(
+            color: AppColor.kDialogButtonColor,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text(text),
-                Text(text2),
+                LabelButton(
+                  text: 'CANCEL',
+                  color: Colors.white,
+                  onTap: () {
+                    Navigator.pop(context, false);
+                  },
+                ),
+                CustomDivider(
+                  width: 2.scs,
+                  height: 50.sch,
+                  color: Colors.white,
+                ),
+                LabelButton(
+                    text: 'OK', color: Colors.white, onTap: () => doSignOut()),
               ],
             ),
-            Divider(color: Colors.black),
-          ],
-        ),
-        onTap: onTap,
-      );
+          )
+        ],
+      ),
+    );
+  }
 }

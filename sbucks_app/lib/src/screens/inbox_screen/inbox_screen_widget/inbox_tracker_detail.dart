@@ -5,7 +5,7 @@ import 'package:sbucks/src/widgets/common/app_spacer.dart';
 
 class InboxTrackerDetail extends StatefulWidget {
   final ProgramTrackerModel data;
-  InboxTrackerDetail(@required this.data);
+  InboxTrackerDetail(this.data);
   @override
   _InboxTrackerDetailState createState() => _InboxTrackerDetailState();
 }
@@ -17,8 +17,8 @@ class _InboxTrackerDetailState extends State<InboxTrackerDetail> {
       appBar: AppBar(
         title: Text('Program Tracker'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             alignment: Alignment.bottomCenter,

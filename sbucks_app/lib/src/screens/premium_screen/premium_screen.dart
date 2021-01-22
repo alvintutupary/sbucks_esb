@@ -3,6 +3,8 @@ import 'package:sbucks/src/screens/premium_screen/premium_screen_widgets/premium
 import 'package:sbucks/src/screens/premium_screen/premium_screen_widgets/premium_review.dart';
 import 'package:sbucks/src/screens/premium_screen/premium_screen_widgets/premium_selfie_id.dart';
 import 'package:sbucks/src/utils/size_config.dart';
+// import 'package:sbucks/src/utils/style.dart';
+// import 'package:sbucks/src/widgets/rounded_border_button.dart';
 
 class PremiumScreen extends StatelessWidget {
   @override
@@ -40,13 +42,24 @@ class PremiumScreen extends StatelessWidget {
               style: TextStyle(fontSize: 15.scs),
             ),
             Text("PREPARE YOUR ID CARD", style: TextStyle(fontSize: 20.scs)),
-            RaisedButton(
-              child: Text('START'),
+            FlatButton(
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (_) => PremiumTabsView()));
               },
-            )
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'START',
+                  style: TextStyle(color: Colors.white, fontSize: 15.scs),
+                ),
+              ),
+              color: Colors.greenAccent[400],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+                // side: BorderSide(color: Colors.red),
+              ),
+            ),
           ],
         ));
   }

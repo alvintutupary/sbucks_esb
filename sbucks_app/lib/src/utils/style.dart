@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+// import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:sbucks/src/utils/size_config.dart';
 
 class AppColor {
@@ -9,6 +9,8 @@ class AppColor {
 
   /// Background colors.
   static Color kPrimaryBackground = _kPWhite;
+  static Color kPrimaryBrand = _kFunGreen;
+  static Color kSecondaryBrand = _kDune;
   static Color kAccentBackground = _kPAlabaster;
   static Color kAccountButtonBackground = _kPAzure;
   static Color kActivityTrackOrderButtonBackground = _kPAzure;
@@ -73,6 +75,10 @@ class AppColor {
   static Color kDeliveryPromoText = _kPAzure;
 
   /// Object colors.
+  static Color kDialogButtonColor = _kDune;
+  static Color kStarTextColor = _kTePapaGreen;
+  static Color kStarTextColor2 = _kTePapaGreen;
+
   static Color kAccountArrowButtonColor = _kPSilverChalice;
   static Color kBannerInactiveBubbleColor = _kPGalleryApprox;
   static Color kBrandColor = _kPYellowOrange;
@@ -97,6 +103,26 @@ class AppColor {
 
   /// Color palettes. ALPHABETICALLY ORDER!!!.
   /// Naming helper using http://chir.ag/projects/name-that-color/
+
+  static Color _kBlack = Color(0xFF000000);
+  static Color _kWhite = Color(0xFFFFFFFF);
+  static Color _kAlto = Color(0xFFD8D8D8);
+  static Color _kSilver = Color(0xFFBDBDBD);
+  static Color _kDustyGrey = Color(0xFF969696);
+  static Color _kCodGrey = Color(0xFF191919);
+  static Color _kDune = Color(0xFF2D2926);
+  static Color _kTwine = Color(0xFFC3A662);
+  static Color _kHusk = Color(0xFFC3A662);
+  static Color _kSundance = Color(0xFFC9A460);
+  static Color _kDriftWood = Color(0xFF9E8447);
+  static Color _kEmerald = Color(0xFF5ECC6B);
+  static Color _kGreenHaze = Color(0xFF01A862);
+  static Color _kFunGreen = Color(0xFF046240);
+  static Color _kJewel = Color(0xFF0E694A);
+  static Color _kTePapaGreen = Color(0xFF1B3C35);
+  static Color _kGuardsmanRed = Color(0xFFDA0000);
+  static Color _kPTransparent = Colors.transparent;
+
   static Color _kPAlabaster = Color(0xFFFAFAFA);
   static Color _kPAlabasterApprox = Color(0xFFF9F9F9);
   static Color _kPAltoApprox = Color(0xFFD0D0D0);
@@ -125,7 +151,6 @@ class AppColor {
   static Color _kPSunglowApprox = Color(0xFFFFBD2F);
   static Color _kPTenn = Color(0xFFD25800);
   static Color _kPThunderbirdApprox = Color(0xFFCE1212);
-  static Color _kPTransparent = Colors.transparent;
   static Color _kPWhite = Color(0xFFFFFFFF);
   static Color _kPYellowOrange = Color(0xFFFFBA3E);
   static Color _kPZumthorApprox = Color(0xFFEBF2FF);
@@ -214,9 +239,9 @@ class AppTextStyle {
     return _instance;
   }
 
-  static void setStatusBarColor(
-      Color color, bool statusBarWhiteForeground) async {
-    await FlutterStatusbarcolor.setStatusBarColor(color, animate: true);
-    await FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
-  }
+  // static void setStatusBarColor(
+  //     Color color, bool statusBarWhiteForeground) async {
+  //   await FlutterStatusbarcolor.setStatusBarColor(color, animate: true);
+  //   await FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+  // }
 }

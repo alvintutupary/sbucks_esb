@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sbucks/src/widgets/common/app_text_field.dart';
 import 'package:sbucks/src/widgets/common/wide_button.dart';
+import 'package:sbucks/src/utils/size_config.dart';
+import 'package:sbucks/src/utils/style.dart';
+import 'package:sbucks/src/widgets/common/app_spacer.dart';
 import 'package:sbucks/src/screens/register_screen/register_screen_widgets/register_otp.dart';
 import 'package:sbucks/src/screens/register_screen/register_screen_widgets/register_agreement.dart';
 
@@ -63,31 +66,28 @@ class _PersonalChangeDetailState extends State<PersonalChangeDetail> {
         title: Text('Change Profile'),
       ),
       body: Container(
-        padding: EdgeInsets.all(40.0),
+        padding: EdgeInsets.all(10.scs),
         child: ListView(children: <Widget>[
           Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                label("Please input your personal  detail"),
-                SizedBox(height: 5.0),
+                Text(
+                  "Please input your personal  detail",
+                  style: TextStyle(
+                    fontSize: 20.scs,
+                  ),
+                ),
+                AppSpacer.vSpacing(5),
                 firstNameField,
-                SizedBox(height: 5.0),
+                AppSpacer.vSpacing(5),
                 lastNameField,
-                SizedBox(height: 5.0),
+                AppSpacer.vSpacing(5),
                 phoneField,
-                SizedBox(height: 5.0),
+                AppSpacer.vSpacing(5),
                 favoriteBaverageField,
                 SizedBox(height: 15.0),
-                // Row(
-                //   children: [
-                //     Checkbox(
-                //       onChanged: (value) {},
-                //     ),
-                //     Text('I agree with term and condition')
-                //   ],
-                // ),
                 Row(
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -99,22 +99,18 @@ class _PersonalChangeDetailState extends State<PersonalChangeDetail> {
                         });
                       },
                     ),
-                    Text("I agree with this "),
-                    InkWell(
-                      child: Text('term and condition',
-                          style: TextStyle(color: Colors.blue)),
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            child: AlertDialog(
-                              content: RegisterAgreement(),
-                            ));
-                      },
-                    )
+                    Text(
+                      "I wish to receive direct marketing \ncommunication from Starbucks Indonesia",
+                      style: TextStyle(
+                        fontSize: 15.scs,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                    ),
                   ],
                 ),
                 WideButton(
-                  color: Color(0xff006442),
+                  color: AppColor.kSecondaryBrand,
                   flatButton: true,
                   child: Text(
                     'Cancel',
@@ -125,7 +121,7 @@ class _PersonalChangeDetailState extends State<PersonalChangeDetail> {
                   onPressed: () {},
                 ),
                 WideButton(
-                  color: Color(0xff006442),
+                  color: AppColor.kSecondaryBrand,
                   flatButton: true,
                   child: Text(
                     'Update',

@@ -12,12 +12,21 @@ import 'package:sbucks/src/screens/payment_screen/payment_screen_widgets/payment
 import 'package:sbucks/src/screens/payment_screen/payment_screen_widgets/payment_chose_bank.dart';
 import 'package:sbucks/src/screens/payment_screen/payment_screen_widgets/payment_bank.dart';
 import 'package:sbucks/src/screens/reward_screen/reward_screen.dart';
-import 'package:sbucks/src/screens/tutorial_screen/tutorial_screen.dart';
 import 'package:sbucks/src/screens/inbox_screen/inbox_screen.dart';
+import 'package:sbucks/src/screens/login_screen/login_screen_widget/login_email_otp.dart';
+import 'package:sbucks/src/screens/login_screen/login_screen_widget/login_set_pin.dart';
+import 'package:sbucks/src/screens/login_screen/login_screen_widget/login_confirm_pin.dart';
+import 'package:sbucks/src/screens/login_screen/login_screen_widget/login_pin.dart';
+import 'package:sbucks/src/screens/splash_screen/splash_screen.dart';
+import 'package:sbucks/src/screens/transaction_history_screen/transaction_history_screen.dart';
+import 'package:sbucks/src/screens/home_screen/home_screen_widgets/home_news.dart';
+import 'package:sbucks/src/screens/static_screen/static_screen.dart';
 
 Route<dynamic> generateRoutes(RouteSettings settings) {
   // AppTextStyle.setStatusBarColor(AppColor.kStatusBarAccentColor, false);
   switch (settings.name) {
+    case SplashScreen.kRouteName:
+      return _buildMaterialPageRoute(SplashScreen.kRouteName, SplashScreen());
     case MainScreen.kRouteName:
       return _buildMaterialPageRoute(MainScreen.kRouteName, MainScreen());
     case HomeScreen.kRouteName:
@@ -53,12 +62,34 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
           ));
     case RewardScreen.kRouteName:
       return _buildMaterialPageRoute(RewardScreen.kRouteName, RewardScreen());
-    case TutorialScreen.kRouteName:
-      return _buildMaterialPageRoute(
-          TutorialScreen.kRouteName, TutorialScreen());
+
     case InboxScreen.kRouteName:
       return _buildMaterialPageRoute(InboxScreen.kRouteName, InboxScreen());
-
+    case LoginEmailOTP.kRouteName:
+      return _buildMaterialPageRoute(
+          LoginEmailOTP.kRouteName, LoginEmailOTP(settings.arguments));
+    case LoginSetPin.kRouteName:
+      return _buildMaterialPageRoute(LoginSetPin.kRouteName, LoginSetPin());
+    case LoginConfirmPin.kRouteName:
+      return _buildMaterialPageRoute(
+          LoginConfirmPin.kRouteName,
+          LoginConfirmPin(
+            pin: settings.arguments,
+          ));
+    case LoginPin.kRouteName:
+      return _buildMaterialPageRoute(LoginPin.kRouteName, LoginPin());
+    case StaticScreen.kRouteName:
+      return _buildMaterialPageRoute(
+          StaticScreen.kRouteName, StaticScreen(settings.arguments));
+    case HomeNews.kRouteName:
+      return _buildMaterialPageRoute(
+          HomeNews.kRouteName,
+          HomeNews(
+            content: settings.arguments,
+          ));
+    case TransactionHistoryScreen.kRouteName:
+      return _buildMaterialPageRoute(
+          TransactionHistoryScreen.kRouteName, TransactionHistoryScreen());
     default:
       return null;
   }

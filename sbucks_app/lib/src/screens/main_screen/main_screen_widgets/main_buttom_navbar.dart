@@ -38,4 +38,13 @@ Padding _buildIcon(IconData icon, Color color) {
     padding: const EdgeInsets.only(bottom: 3),
     child: Icon(icon, size: 30, color: color),
   );
+  // Container(
+  //   alignment: Alignment.bottomRight,
+  //   decoration: BoxDecoration(
+  //       image: DecorationImage(
+  //           fit: BoxFit.cover,
+  //           image: AssetImage('assets/icons/bnb-home-icon.png'))),
+  //   height: 50.scs,
+  //   width: 50.scs,
+  // );
 }

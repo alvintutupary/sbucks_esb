@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sbucks/src/models/menu_model.dart';
 import 'package:sbucks/src/screens/menu_screen/menu_screen_widgets/menu_category_detail.dart';
 import 'package:sbucks/src/screens/menu_screen/menu_screen_widgets/menu_detail.dart';
-// import 'package:sbucks/src/models/menu_model.dart';
+import 'package:sbucks/src/models/menu_model.dart';
 import 'package:sbucks/src/screens/reward_screen/reward_screen.dart';
+import 'package:sbucks/src/utils/constant.dart';
 import 'package:sbucks/src/utils/size_config.dart';
 
 class MenuCategoryDetail extends StatefulWidget {
@@ -24,17 +25,17 @@ class _MenuCategoryDetailState extends State<MenuCategoryDetail> {
         title: Container(
           alignment: Alignment.centerLeft,
           child: Text(
-            widget.data.title,
+            widget.data.menuCategoryDetailDesc,
             style: TextStyle(color: Colors.black, fontSize: 25.scs),
           ),
         ),
         backgroundColor: Colors.white,
       ),
-      body: _buildMenu(widget.data.menuDetailModels, _height),
+      body: _buildMenu(widget.data.menus, _height),
     );
   }
 
-  _buildMenu(List<MenuDetailModel> data, double height) {
+  _buildMenu(List<MenuModel> data, double height) {
     return SizedBox(
         width: double.infinity,
         // height: ,
@@ -48,8 +49,8 @@ class _MenuCategoryDetailState extends State<MenuCategoryDetail> {
                     crossAxisCount: 2),
                 itemBuilder: (context, position) {
                   return _imageWithText(
-                    data[position].imageUri,
-                    '${data[position].title}',
+                    data[position].imageUri ?? AppConstant.kEmptyImage,
+                    '${data[position].menuName}',
                     height,
                     function: () {
                       return Navigator.push(

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sbucks/src/screens/login_screen/login_screen.dart';
-import 'package:sbucks/src/screens/register_screen/register_screen.dart';
-import 'package:sbucks/src/screens/register_screen/register_screen_widgets/register_otp.dart';
 import 'package:sbucks/src/utils/style.dart';
 import 'package:sbucks/src/utils/size_config.dart';
-import 'package:sbucks/src/widgets/common/wide_button.dart';
 import 'package:sbucks/src/widgets/common/app_spacer.dart';
-import 'package:sbucks/src/widgets/custom_dialog.dart';
+import 'package:sbucks/src/widgets/label_button.dart';
+import 'package:sbucks/src/blocs/app_bloc.dart';
 
 class _IntroItem {
   String imageUri;
@@ -75,16 +73,16 @@ class _IntroScreenState extends State<IntroScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.only(
-              left: 10.sch,
-              right: 10.sch,
-              bottom: 5,
-              top: 52,
-            ),
-            child: Image.asset(
-              item.imageUri,
-              fit: BoxFit.cover,
-              scale: 1.scs,
+            padding: EdgeInsets.only(top: 150.sch),
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.contain,
+                  image: AssetImage(item.imageUri),
+                ),
+              ),
+              height: 200.sch,
+              // width: MediaQuery.of(context).size.width,
             ),
           ),
           Column(
@@ -94,9 +92,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white, fontSize: 50.scs),
               ),
-              Padding(
-                padding: EdgeInsets.all(15.0),
-              ),
+              AppSpacer.hSpacing(100),
               Text(
                 item.subtitle,
                 textAlign: TextAlign.center,
@@ -116,17 +112,27 @@ class _IntroScreenState extends State<IntroScreen> {
         int index = _introItems.indexOf(item);
         return AnimatedContainer(
           duration: Duration(milliseconds: 100),
-          width: _current == index ? 8.0 : 8.0,
-          height: 8.0,
-          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+          width: _current == index ? 8.scs : 8.scs,
+          height: 8.scs,
+          margin: EdgeInsets.symmetric(vertical: 10.sch, horizontal: 2.scw),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100.0),
+            borderRadius: BorderRadius.circular(100),
             color: _current == index ? Color(0xff006442) : Color(0xFFC4C4C4),
           ),
           curve: Curves.fastOutSlowIn,
         );
       }).toList(),
     );
+  }
+
+  void _onFinish() async {
+    bool isFirstRun = await appBloc.isFirstRun();
+    if (isFirstRun) {
+      appBloc.finishFirstRun();
+      Navigator.pushNamed(context, LoginScreen.kRouteName);
+    } else {
+      Navigator.pop(context);
+    }
   }
 
   Widget _buildButtons() {
@@ -136,22 +142,12 @@ class _IntroScreenState extends State<IntroScreen> {
     return AnimatedCrossFade(
       duration: Duration(milliseconds: 100),
       firstChild: Container(),
-      secondChild: Column(
-        children: [
-          WideButton(
-            color: Color(0xff006442),
-            flatButton: true,
-            child: Text(
-              'Finish',
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-            circularRadius: 0,
-            onPressed: () =>
-                Navigator.pushNamed(context, LoginScreen.kRouteName),
-          ),
-          AppSpacer.vSpacing(5),
-        ],
+      secondChild: Center(
+        child: LabelButton(
+          text: 'FINISH',
+          color: Colors.white,
+          onTap: () => _onFinish(),
+        ),
       ),
       crossFadeState:
           isLastIndex ? CrossFadeState.showSecond : CrossFadeState.showFirst,
@@ -194,7 +190,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 Positioned(
                   left: 0,
                   right: 0,
-                  top: 20.sch,
+                  // top: 5.sch,
                   child: _buildIndicator(),
                 ),
                 Positioned(
@@ -202,7 +198,7 @@ class _IntroScreenState extends State<IntroScreen> {
                   left: 0,
                   right: 0,
                   child: Padding(
-                    padding: EdgeInsets.all(16),
+                    padding: EdgeInsets.all(5.scs),
                     child: _buildButtons(),
                   ),
                 ),

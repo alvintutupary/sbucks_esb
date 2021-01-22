@@ -3,6 +3,13 @@ import 'package:sbucks/src/screens/payment_add_screen/payment_add_screen.dart';
 import 'package:sbucks/src/screens/payment_report_lost_card_screen/payment_report_lost_card_screen.dart';
 import 'package:sbucks/src/screens/payment_screen/payment_screen_widgets/payment_topup.dart';
 import 'package:sbucks/src/screens/payment_virtual_account_screen/payment_virtual_account_screen.dart';
+import 'package:sbucks/src/screens/payment_screen/payment_screen_widgets/payment_dummy_data.dart';
+import 'package:sbucks/src/models/card_model.dart';
+import 'package:sbucks/src/widgets/rounded_border_button.dart';
+import 'package:sbucks/src/widgets/card_image.dart';
+import 'package:sbucks/src/widgets/common/app_spacer.dart';
+import 'package:sbucks/src/utils/size_config.dart';
+import 'package:sbucks/src/utils/style.dart';
 
 class PaymentScreen extends StatefulWidget {
   static const kRouteName = '/payment';
@@ -32,7 +39,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
           title: Text('Starbucks Card'),
         ),
         body: TabBarView(
-          // physics: NeverScrollableScrollPhysics(),
           children: [
             PayTab(),
             PaymentAddScreen(),
@@ -51,24 +57,63 @@ class PayTab extends StatefulWidget {
 }
 
 class _PayTabState extends State<PayTab> {
-  bool _isDefaultCard = false;
+  List<CardModel> cards = PaymentDummyData().cards;
+
+  CardModel _defaultCard;
+
+  @override
+  void initState() {
+    _defaultCard = cards.firstWhere((fw) => fw.isDefault);
+    super.initState();
+  }
+
+  void onClickCard(CardModel data) {
+    setState(() {
+      _defaultCard = data;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Your account balance'),
+          AppSpacer.vSpacing(5),
+          Text(
+            'Your account balance',
+            style: TextStyle(
+              fontSize: 15.scs,
+            ),
+          ),
+          // AppSpacer.vSpacing(15),
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  children: [Text('Rp. 20,000'), Icon(Icons.refresh)],
+                  children: [
+                    Text('Rp. ${_defaultCard.balance}'),
+                    Icon(Icons.refresh)
+                  ],
                 ),
-                Text('Active'),
+                _defaultCard.isActive
+                    ? Text(
+                        'Active',
+                        style: TextStyle(color: Colors.green),
+                      )
+                    : Text(
+                        'Inactive',
+                        style: TextStyle(color: Colors.red),
+                      ),
                 FlatButton(
-                    child: Text('TOPUP'),
+                    child: Text(
+                      'TOPUP',
+                      style: TextStyle(
+                        fontSize: 20.scs,
+                        color: AppColor.kPrimaryBrand,
+                      ),
+                    ),
                     onPressed: () {
                       Navigator.pushNamed(
                         context,
@@ -79,31 +124,64 @@ class _PayTabState extends State<PayTab> {
             ),
           ),
           Center(
-            child: Text('12/12/1212'),
+            child: Text(_defaultCard.createdAt),
           ),
-          Image.asset('assets/img/sbuck-card.jpg'),
+          CardImage(
+            _defaultCard.imageUri,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
                   Checkbox(
-                    value: _isDefaultCard,
+                    value: _defaultCard.isDefault,
                     onChanged: (bool value) {
-                      setState(() {
-                        _isDefaultCard = value;
-                      });
+                      // setState(() {
+
+                      // });
                     },
                   ),
                   Text('Set as default card')
                 ],
               ),
-              RaisedButton(
-                child: Text('PAY'),
+              RoundedBorderButton(
+                text: 'PAY',
+                color: Colors.green[700],
+                borderColor: Colors.white,
+                textColor: Colors.white,
+                borderThick: 2,
+                radius: 50,
                 onPressed: () {},
               )
             ],
-          )
+          ),
+          Text('MY CARD'),
+          Container(
+            height: 100.sch,
+            width: double.infinity,
+            child: ListView.builder(
+              itemCount: PaymentDummyData().cards.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  child: Column(
+                    children: [
+                      CardImage(
+                        PaymentDummyData().cards[index].imageUri,
+                        size: 80.sch,
+                      ),
+                      Text(
+                        '(${PaymentDummyData().cards[index].number.substring(15, 19)})',
+                        style: TextStyle(fontSize: 15.scs),
+                      ),
+                    ],
+                  ),
+                  onTap: () => onClickCard(PaymentDummyData().cards[index]),
+                );
+              },
+              scrollDirection: Axis.horizontal,
+            ),
+          ),
         ],
       ),
     );

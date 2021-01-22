@@ -106,8 +106,7 @@ class _PremiumPhotoIdState extends State<PremiumPhotoId> {
                       fit: BoxFit.contain,
                       image:
                           AssetImage('assets/img/premium-icon-large-2.jpg'))),
-              height: 250.sch,
-              // width: 100.sch,
+              height: 200.sch,
             ),
             Row(
               // mainAxisSize: MainAxisSize.max,

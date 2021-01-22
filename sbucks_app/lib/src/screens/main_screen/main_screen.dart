@@ -7,12 +7,10 @@ import 'package:bubbled_navigation_bar/bubbled_navigation_bar.dart';
 import 'package:sbucks/src/models/main_menu_model.dart';
 import 'package:sbucks/src/screens/home_screen/home_screen.dart';
 import 'package:sbucks/src/screens/main_screen/main_screen_widgets/main_buttom_navbar.dart';
-import 'package:sbucks/src/widgets/common/wide_button.dart';
 import 'package:sbucks/src/screens/menu_screen/menu_screen.dart';
 import 'package:sbucks/src/screens/payment_screen/payment_screen.dart';
 import 'package:sbucks/src/screens/reward_screen/reward_screen.dart';
 import 'package:sbucks/src/screens/store_screen/store_screen.dart';
-import 'package:sbucks/src/screens/test_aja.dart';
 import 'package:shake/shake.dart';
 
 class MainScreen extends StatefulWidget {
@@ -60,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         BarcodeWidget(
-                          barcode: Barcode.code128(),
+                          barcode: Barcode.pdf417(),
                           data: '6232020671965087',
                         ),
                         RaisedButton(

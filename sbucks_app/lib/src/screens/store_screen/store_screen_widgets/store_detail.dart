@@ -2,13 +2,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sbucks/src/utils/size_config.dart';
-import 'package:sbucks/src/widgets/common/app_text_field.dart';
+// import 'package:sbucks/src/widgets/common/app_text_field.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:sbucks/src/models/store_model.dart';
 
 class StoreDetail extends StatefulWidget {
-  final StoreModel storedata;
-  StoreDetail(@required this.storedata);
+  final OutletModel outletData;
+  StoreDetail(this.outletData);
   @override
   State<StoreDetail> createState() => StoreDetailState();
 }
@@ -42,22 +42,18 @@ class StoreDetailState extends State<StoreDetail> {
   Widget build(BuildContext context) {
     final _markers = Set<Marker>()
       ..add(Marker(
-        markerId: MarkerId(widget.storedata.name),
-        position: LatLng(widget.storedata.longitude, widget.storedata.latitude),
+        markerId: MarkerId(widget.outletData.branchCode),
+        position:
+            LatLng(widget.outletData.longitude, widget.outletData.latitude),
         infoWindow: InfoWindow(
-            title: widget.storedata.name,
-            snippet: widget.storedata.name,
+            title: widget.outletData.branchName,
+            snippet: widget.outletData.distanceText,
             onTap: () {}),
         icon: BitmapDescriptor.defaultMarker,
       ));
-    final searchField = TextFormField(
-      autofocus: false,
-      validator: (value) => value.isEmpty ? "Please distric password" : null,
-      onSaved: (value) => _search = value,
-      decoration: buildInputDecoration(hintText: "distric", icon: Icons.search),
-    );
+
     return new Scaffold(
-      appBar: AppBar(title: Text(widget.storedata.name)),
+      appBar: AppBar(title: Text(widget.outletData.branchName)),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -71,7 +67,7 @@ class StoreDetailState extends State<StoreDetail> {
               zoomControlsEnabled: true,
               initialCameraPosition: CameraPosition(
                 target: LatLng(
-                    widget.storedata.latitude, widget.storedata.longitude),
+                    widget.outletData.latitude, widget.outletData.longitude),
                 zoom: 14.4746,
               ),
               markers: _markers,
@@ -92,7 +88,7 @@ class StoreDetailState extends State<StoreDetail> {
                   padding: EdgeInsets.symmetric(
                       vertical: 10.sch, horizontal: 15.scw),
                   child: Text(
-                    widget.storedata.name,
+                    widget.outletData.branchName,
                     style:
                         TextStyle(color: Colors.green[900], fontSize: 20.scs),
                   ),
@@ -122,7 +118,7 @@ class StoreDetailState extends State<StoreDetail> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Get Direction'),
-                        Text(widget.storedata.address),
+                        Text(widget.outletData.branchName),
                       ],
                     ),
                   ),
@@ -136,7 +132,7 @@ class StoreDetailState extends State<StoreDetail> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Call Now'),
-                        Text(widget.storedata.address),
+                        Text(widget.outletData.branchName),
                       ],
                     ),
                   ),
@@ -151,7 +147,7 @@ class StoreDetailState extends State<StoreDetail> {
                       children: [
                         Text('Open Hours'),
                         Text(
-                            '${widget.storedata.openDay} - ${widget.storedata.closeDay} : ${widget.storedata.openHour} - ${widget.storedata.closeHour}'),
+                            '${widget.outletData.branchCode} - ${widget.outletData.branchCode} : ${widget.outletData.branchCode} - ${widget.outletData.branchCode}'),
                       ],
                     ),
                   ),
@@ -164,38 +160,38 @@ class StoreDetailState extends State<StoreDetail> {
     );
   }
 
-  _buildListStore(
-    String name,
-    String address,
-    String openDay,
-    String openHour,
-    String closeDay,
-    String closeHour,
-  ) =>
-      Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.scw),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(name, style: TextStyle(color: Colors.green[900])),
-                  Text(
-                    address,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text('Operational Hour:'),
-                  Text('$openDay - $closeDay: $openHour : $closeHour'),
-                ],
-              ),
-            ),
-            Divider(
-              thickness: 2.scs,
-              color: Colors.black,
-            )
-          ],
-        ),
-      );
+  // _buildListStore(
+  //   String name,
+  //   String address,
+  //   String openDay,
+  //   String openHour,
+  //   String closeDay,
+  //   String closeHour,
+  // ) =>
+  //     Container(
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           Padding(
+  //             padding: EdgeInsets.symmetric(horizontal: 15.scw),
+  //             child: Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Text(name, style: TextStyle(color: Colors.green[900])),
+  //                 Text(
+  //                   address,
+  //                   textAlign: TextAlign.justify,
+  //                 ),
+  //                 Text('Operational Hour:'),
+  //                 Text('$openDay - $closeDay: $openHour : $closeHour'),
+  //               ],
+  //             ),
+  //           ),
+  //           Divider(
+  //             thickness: 2.scs,
+  //             color: Colors.black,
+  //           )
+  //         ],
+  //       ),
+  //     );
 }

@@ -1,213 +1,247 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:sbucks/src/utils/size_config.dart';
-import 'package:sbucks/src/widgets/common/app_text_field.dart';
-import 'package:geolocator/geolocator.dart';
+// import 'package:sbucks/src/utils/colors.dart';
 
 class TestAja extends StatefulWidget {
   @override
-  State<TestAja> createState() => TestAjaState();
+  _TestAjaState createState() => _TestAjaState();
 }
 
-class TestAjaState extends State<TestAja> {
-  Completer<GoogleMapController> _controllerGoogleMap = Completer();
-  String _search;
-  // Completer<GoogleMapController> _controllerGoogleMap = Completer();
+class _TestAjaState extends State<TestAja> {
+  static var _keyValidationForm = GlobalKey<FormState>();
+  TextEditingController _textEditConName = TextEditingController();
+  TextEditingController _textEditConEmail = TextEditingController();
+  TextEditingController _textEditConPassword = TextEditingController();
+  TextEditingController _textEditConConfirmPassword = TextEditingController();
+  final FocusNode _passwordEmail = FocusNode();
+  final FocusNode _passwordFocus = FocusNode();
+  final FocusNode _passwordConfirmFocus = FocusNode();
+  bool isPasswordVisible = false;
+  bool isConfirmPasswordVisible = false;
 
-  GoogleMapController newGoogleMapController;
-
-  GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  Position currentPosition;
-  var geoLocator = Geolocator();
-
-  double bottomPaddingOfMap = 0;
-
-  void locatePosition() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    currentPosition = position;
-    LatLng latLngPosition = LatLng(
-        position.latitude ?? -6.258706, position.longitude ?? 106.620660);
-    CameraPosition cameraPosition =
-        CameraPosition(target: latLngPosition, zoom: 14);
-    newGoogleMapController
-        .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+  @override
+  void initState() {
+    isPasswordVisible = false;
+    isConfirmPasswordVisible = false;
+    super.initState();
   }
-
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(-6.258706, 106.620660),
-    zoom: 14.4746,
-  );
-
-  final _markers = Set<Marker>()
-    ..add(Marker(
-      markerId: MarkerId('Starbucks Bez Plaza Gading Serpong'),
-      position: LatLng(-6.258734, 106.620563),
-      infoWindow: InfoWindow(
-        title: 'Really cool place',
-        snippet: '5 Star Rating',
-      ),
-      icon: BitmapDescriptor.defaultMarker,
-    ))
-    ..add(Marker(
-      markerId: MarkerId('Starbucks 2 - Supermall Karawaci'),
-      position: LatLng(-6.226583, 106.607870),
-      infoWindow: InfoWindow(
-        title: 'Really cool place',
-        snippet: '5 Star Rating',
-      ),
-      icon: BitmapDescriptor.defaultMarker,
-    ))
-    ..add(Marker(
-      markerId: MarkerId('Starbucks Coffee Sumarecon Mall Serpong 2'),
-      position: LatLng(-6.241862, 106.627498),
-      infoWindow: InfoWindow(
-        title: 'Really cool place',
-        snippet: '5 Star Rating',
-      ),
-      icon: BitmapDescriptor.defaultMarker,
-    ));
-
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 0, //192.8334901395799,
-      target: LatLng(-6.258706, 106.620660),
-      zoom: 19.151926040649414);
 
   @override
   Widget build(BuildContext context) {
-    final searchField = TextFormField(
-      autofocus: false,
-      validator: (value) => value.isEmpty ? "Please distric password" : null,
-      onSaved: (value) => _search = value,
-      decoration: buildInputDecoration(hintText: "distric", icon: Icons.search),
-    );
-    return new Scaffold(
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 200.sch,
-                      child: GoogleMap(
-                        padding: EdgeInsets.only(bottom: bottomPaddingOfMap),
-                        mapType: MapType.normal,
-                        myLocationButtonEnabled: true,
-                        zoomGesturesEnabled: true,
-                        zoomControlsEnabled: true,
-                        initialCameraPosition: _kGooglePlex,
-                        markers: _markers,
-                        onMapCreated: (GoogleMapController controller) {
-                          _controllerGoogleMap.complete(controller);
-                          newGoogleMapController = controller;
-                          locatePosition();
-                          setState(() {
-                            bottomPaddingOfMap = 265.0;
-                          });
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.sch, horizontal: 15.scw),
-                      child: Text(
-                        'Nearby Store',
-                        style: TextStyle(
-                            color: Colors.green[900], fontSize: 20.scs),
-                      ),
-                    ),
-                    Container(
-                      height: 340.sch,
-                      child: ListView(
-                        children: [
-                          _buildListStore(),
-                          _buildListStore(),
-                          _buildListStore(),
-                          _buildListStore(),
-                          _buildListStore(),
-                          _buildListStore(),
-                          _buildListStore(),
-                          _buildListStore(),
-                          _buildListStore(),
-                          _buildListStore(),
-                          _buildListStore(),
-                          _buildListStore(),
-                          _buildListStore(),
-                          _buildListStore(),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Align(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: searchField,
-                    color: Colors.white,
-                  ),
-                ),
-                alignment: Alignment.topLeft,
-              ),
-              // Align(
-              //   child: Container(
-              //     color: Colors.yellow,
-              //     child: Text(
-              //       'Somthing to show',
-              //       style: TextStyle(fontSize: 25),
-              //     ),
-              //   ),
-              //   alignment: Alignment.topLeft,
-              // ),
-            ],
-          ),
-        ],
+    return Scaffold(
+      backgroundColor: Colors.grey,
+      body: SingleChildScrollView(
+        child: Padding(
+            padding: EdgeInsets.only(top: 32.0),
+            child: Column(
+              children: <Widget>[
+                getWidgetImageLogo(),
+                getWidgetRegistrationCard(),
+              ],
+            )),
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: _goToTheLake,
-      //   label: Text('To the lake!'),
-      //   icon: Icon(Icons.directions_boat),
-      // ),
     );
   }
 
-  _buildListStore() => Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.scw),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Summarecon Mall Serpong 2',
-                      style: TextStyle(color: Colors.green[900])),
-                  Text(
-                    '''Jl. Gading Serpong Boulevard No.Sumarecon Mall Serpong, Jl. Gading Serpong Boulevard No.245, Pakulonan Bar., Kec. Klp. Dua, Tangerang, Banten 15810''',
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text('Operational Hour:'),
-                  Text('Mon - Sun: 07.00:20.00'),
-                ],
-              ),
-            ),
-            Divider(
-              thickness: 2.scs,
-              color: Colors.black,
-            )
-          ],
-        ),
-      );
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controllerGoogleMap.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+  Widget getWidgetImageLogo() {
+    return Container(
+        alignment: Alignment.center,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 32, bottom: 32),
+          child: Icon(Icons.ac_unit),
+        ));
   }
+
+  Widget getWidgetRegistrationCard() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+      child: Card(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        elevation: 10.0,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _keyValidationForm,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.center,
+                  width: double.infinity,
+                  child: Text(
+                    'Register',
+                    style: TextStyle(fontSize: 18.0, color: Colors.black),
+                  ),
+                ), // title: login
+                Container(
+                  child: Theme(
+                    data: Theme.of(context).copyWith(
+                      primaryColor: Colors.green,
+                    ),
+                    child: TextFormField(
+                      controller: _textEditConName,
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
+                      validator: _validateUserName,
+                      onFieldSubmitted: (String value) {
+                        FocusScope.of(context).requestFocus(_passwordEmail);
+                      },
+                      decoration: InputDecoration(
+                          labelText: 'Full name',
+                          //prefixIcon: Icon(Icons.email),
+                          icon: Icon(Icons.perm_identity)),
+                    ),
+                  ),
+                ), //text field : user name
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    primaryColor: Colors.green,
+                  ),
+                  child: TextFormField(
+                    controller: _textEditConEmail,
+                    focusNode: _passwordEmail,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    validator: _validateEmail,
+                    onFieldSubmitted: (String value) {
+                      FocusScope.of(context).requestFocus(_passwordFocus);
+                    },
+                    decoration: InputDecoration(
+                        labelText: 'Email', icon: Icon(Icons.email)),
+                  ),
+                ),
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    primaryColor: Colors.green,
+                  ),
+                  child: TextFormField(
+                    controller: _textEditConPassword,
+                    focusNode: _passwordFocus,
+                    keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.next,
+                    validator: _validatePassword,
+                    onFieldSubmitted: (String value) {
+                      FocusScope.of(context)
+                          .requestFocus(_passwordConfirmFocus);
+                    },
+                    obscureText: !isPasswordVisible,
+                    decoration: InputDecoration(
+                        labelText: 'Password',
+                        suffixIcon: IconButton(
+                          icon: Icon(isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              isPasswordVisible = !isPasswordVisible;
+                            });
+                          },
+                        ),
+                        icon: Icon(Icons.vpn_key)),
+                  ),
+                ), //text field: password
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    primaryColor: Colors.green,
+                  ),
+                  child: TextFormField(
+                      controller: _textEditConConfirmPassword,
+                      focusNode: _passwordConfirmFocus,
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.done,
+                      validator: _validateConfirmPassword,
+                      obscureText: !isConfirmPasswordVisible,
+                      decoration: InputDecoration(
+                          labelText: 'Confirm Password',
+                          suffixIcon: IconButton(
+                            icon: Icon(isConfirmPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                isConfirmPasswordVisible =
+                                    !isConfirmPasswordVisible;
+                              });
+                            },
+                          ),
+                          icon: Icon(Icons.vpn_key))),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 32.0),
+                  width: double.infinity,
+                  child: RaisedButton(
+                    color: Colors.amberAccent,
+                    textColor: Colors.white,
+                    elevation: 5.0,
+                    padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
+                    child: Text(
+                      'Register',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    onPressed: () {
+                      if (_keyValidationForm.currentState.validate()) {
+                        _onTappedButtonRegister();
+                      }
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0)),
+                  ),
+                ), //button: login
+                Container(
+                    margin: EdgeInsets.only(top: 16.0, bottom: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Already Register? ',
+                        ),
+                        InkWell(
+                          splashColor: Colors.amberAccent.withOpacity(0.5),
+                          onTap: () {
+                            _onTappedTextlogin();
+                          },
+                          child: Text(
+                            ' Login',
+                            style: TextStyle(
+                                color: Colors.amberAccent,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    ))
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  String _validateUserName(String value) {
+    return value.trim().isEmpty ? "Name can't be empty" : null;
+  }
+
+  String _validateEmail(String value) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value)) {
+      return 'Invalid Email';
+    } else {
+      return null;
+    }
+  }
+
+  String _validatePassword(String value) {
+    return value.length < 5 ? 'Min 5 char required' : null;
+  }
+
+  String _validateConfirmPassword(String value) {
+    return value.length < 5 ? 'Min 5 char required' : null;
+  }
+
+  void _onTappedButtonRegister() {}
+
+  void _onTappedTextlogin() {}
 }

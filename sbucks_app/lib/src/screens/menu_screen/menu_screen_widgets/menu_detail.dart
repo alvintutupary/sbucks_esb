@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:sbucks/src/models/menu_model.dart';
+import 'package:sbucks/src/utils/constant.dart';
 import 'package:sbucks/src/utils/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MenuDetail extends StatefulWidget {
   static final kRouteName = '/menuDetail';
-  final MenuDetailModel data;
+  final MenuModel data;
   MenuDetail({@required this.data});
   @override
   _MenuDetailState createState() => _MenuDetailState();
@@ -29,7 +30,7 @@ class _MenuDetailState extends State<MenuDetail> {
         title: Container(
           alignment: Alignment.centerLeft,
           child: Text(
-            widget.data.title,
+            widget.data.menuShortName,
             style: TextStyle(color: Colors.black, fontSize: 25.scs),
           ),
         ),
@@ -50,53 +51,21 @@ class _MenuDetailState extends State<MenuDetail> {
             decoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage(widget.data.imageUri))),
+                    image: AssetImage(
+                        widget.data.imageUri ?? AppConstant.kEmptyImage))),
             height: MediaQuery.of(context).size.width / 2,
             width: MediaQuery.of(context).size.width,
-            child: Text(widget.data.title,
+            child: Text(widget.data.menuName,
                 style: TextStyle(
                     fontSize: 25.scs,
                     color: Colors.white,
                     fontWeight: FontWeight.bold)),
           ),
           Expanded(
-            child: InAppWebView(
-              initialUrl: widget.data.descriptionUri,
-              initialOptions: InAppWebViewGroupOptions(
-                crossPlatform: InAppWebViewOptions(
-                  cacheEnabled: false,
-                  clearCache: true,
-                  useShouldOverrideUrlLoading: true,
-                ),
-              ),
-              onProgressChanged: (_, value) {
-                setState(() {
-                  _loadingProgress = value / 100;
-                  if (_loadingProgress >= 1) {
-                    _loadingProgress = 0;
-                  }
-                });
-              },
-              shouldOverrideUrlLoading: _handleUrlChanged,
-            ),
+            child: Text(widget.data.description),
           ),
         ],
       ),
     );
-  }
-
-  Future<ShouldOverrideUrlLoadingAction> _handleUrlChanged(
-      _, ShouldOverrideUrlLoadingRequest request) async {
-    final url = request.url;
-
-    if (url != widget.data.descriptionUri) {
-      if (await canLaunch(url)) {
-        await launch(url);
-      }
-
-      return ShouldOverrideUrlLoadingAction.CANCEL;
-    }
-
-    return ShouldOverrideUrlLoadingAction.ALLOW;
   }
 }

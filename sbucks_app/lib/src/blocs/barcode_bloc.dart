@@ -10,7 +10,6 @@ void buildBarcode(
   double height,
   double fontHeight,
 }) {
-  /// Create the Barcode
   final svg = bc.toSvg(
     data,
     width: width ?? 200,
@@ -18,7 +17,6 @@ void buildBarcode(
     fontHeight: fontHeight,
   );
 
-  // Save the image
   filename ??= bc.name.replaceAll(RegExp(r'\s'), '-').toLowerCase();
   File('$filename.svg').writeAsStringSync(svg);
 }

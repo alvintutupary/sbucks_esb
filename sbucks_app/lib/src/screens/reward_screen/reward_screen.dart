@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sbucks/src/screens/reward_screen/reward_screen_widgets/reward_benefit.dart';
 import 'package:sbucks/src/utils/size_config.dart';
+import 'package:sbucks/src/utils/style.dart';
+import 'package:sbucks/src/widgets/common/app_spacer.dart';
+import 'package:sbucks/src/widgets/rounded_border_button.dart';
 
 class RewardScreen extends StatefulWidget {
   static const kRouteName = '/reward';
@@ -16,7 +19,7 @@ class _RewardScreenState extends State<RewardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[900],
+      backgroundColor: AppColor.kPrimaryBrand,
       appBar: AppBar(
         title: Container(
           alignment: Alignment.centerLeft,
@@ -64,9 +67,15 @@ class _RewardScreenState extends State<RewardScreen> {
               ],
             ),
           ),
-          RaisedButton(
+          AppSpacer.vSpacing(10),
+          RoundedBorderButton(
             onPressed: () {},
-            child: Text('View History'),
+            text: 'View History',
+            color: AppColor.kSecondaryBrand,
+            textColor: AppColor.kAccentText,
+            borderColor: AppColor.kAccentText,
+            borderThick: 2.scs,
+            radius: 50,
           ),
           Text('Reward and Benefits',
               style: TextStyle(color: Colors.white, fontSize: 15.scs)),

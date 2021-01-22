@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:sbucks/src/widgets/common/app_text_field.dart';
 import 'package:sbucks/src/utils/size_config.dart';
 import 'package:sbucks/src/widgets/common/app_spacer.dart';
-import 'package:sbucks/src/widgets/common/wide_button.dart';
 import 'dart:io';
 
 class PremiumReview extends StatefulWidget {
   String photoIdPath, selfieIdPath;
-  PremiumReview(@required this.photoIdPath, @required this.selfieIdPath);
+  PremiumReview(this.photoIdPath, this.selfieIdPath);
 
   @override
   _PremiumReviewState createState() => _PremiumReviewState();

@@ -4,10 +4,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:sbucks/src/blocs/barcode_bloc.dart';
-import 'package:sbucks/src/screens/home_screen/home_screen.dart';
 import 'package:sbucks/src/screens/main_screen/main_screen.dart';
 import 'package:sbucks/src/widgets/common/wide_button.dart';
+import 'package:sbucks/src/utils/size_config.dart';
 
 class RegisterOTP extends StatefulWidget {
   static const kRouteName = '/otp';
@@ -47,7 +46,6 @@ class _RegisterOTPState extends State<RegisterOTP> {
     super.dispose();
   }
 
-  static Color _color = Color(0xff006442);
   @override
   Widget build(BuildContext context) {
     // BarcodeBloc().buildBarcode('8080989800');
@@ -95,7 +93,9 @@ class _RegisterOTPState extends State<RegisterOTP> {
                 key: formKey,
                 child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 30),
+                      vertical: 8.0,
+                      horizontal: 8.0,
+                    ),
                     child: PinCodeTextField(
                       appContext: context,
                       pastedTextStyle: TextStyle(
@@ -103,8 +103,8 @@ class _RegisterOTPState extends State<RegisterOTP> {
                         fontWeight: FontWeight.bold,
                       ),
                       length: 6,
-                      obscureText: false,
-                      obscuringCharacter: '*',
+                      obscureText: true,
+                      obscuringCharacter: '\u2022',
                       animationType: AnimationType.fade,
                       validator: (value) {
                         if (value.length != 6) {
@@ -114,36 +114,23 @@ class _RegisterOTPState extends State<RegisterOTP> {
                         }
                       },
                       pinTheme: PinTheme(
-                          shape: PinCodeFieldShape.underline,
-                          fieldHeight: 60,
-                          fieldWidth: 50,
-                          activeFillColor:
-                              hasError ? Colors.orange[200] : Colors.white,
-                          // selectedColor: Colors.grey,
-                          selectedFillColor: Colors.grey[300],
-                          selectedColor: _color,
-                          inactiveFillColor: Colors.grey,
-                          inactiveColor: _color),
+                        shape: PinCodeFieldShape.underline,
+                        fieldHeight: 50.sch,
+                        fieldWidth: 50.scw,
+                        activeFillColor: Colors.grey[300],
+                        activeColor: Colors.grey[300],
+                        selectedFillColor: Colors.grey[300],
+                        selectedColor: Colors.grey[300],
+                        inactiveFillColor: Colors.grey[300],
+                        inactiveColor: Colors.grey[300],
+                      ),
                       cursorColor: Colors.black,
                       animationDuration: Duration(milliseconds: 300),
-                      textStyle: TextStyle(fontSize: 20, height: 1.6),
+                      textStyle: TextStyle(fontSize: 20.scs),
                       enableActiveFill: true,
                       errorAnimationController: errorController,
                       controller: textEditingController,
                       keyboardType: TextInputType.number,
-                      // boxShadows: [
-                      //   BoxShadow(
-                      //     offset: Offset(0, 1),
-                      //     color: Colors.black12,
-                      //     blurRadius: 10,
-                      //   )
-                      // ],
-                      onCompleted: (v) {
-                        print("Completed");
-                      },
-                      // onTap: () {
-                      //   print("Pressed");
-                      // },
                       onChanged: (value) {
                         print(value);
                         setState(() {

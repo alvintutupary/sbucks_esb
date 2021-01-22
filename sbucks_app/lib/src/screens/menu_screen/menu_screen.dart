@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sbucks/src/models/menu_model.dart';
-import 'package:sbucks/src/screens/menu_screen/menu_screen_widgets/dummy_data.dart';
 import 'package:sbucks/src/screens/menu_screen/menu_screen_widgets/menu_detail.dart';
 import 'package:sbucks/src/utils/size_config.dart';
 import 'package:sbucks/src/screens/menu_screen/menu_screen_widgets/menu_category.dart';
@@ -33,7 +32,7 @@ class _MenuScreenState extends State<MenuScreen> {
     final _height = MediaQuery.of(context).size.width / 2;
     final _screenHeight = MediaQuery.of(context).size.height;
 
-    final _menuCategories = DummyData().menuCategories;
+    final _menuCategories = null; //DummyData().menuCategories;
     return Scaffold(
       appBar: AppBar(
         title: Container(
@@ -91,8 +90,8 @@ class _MenuScreenState extends State<MenuScreen> {
                     crossAxisCount: 2),
                 itemBuilder: (context, position) {
                   return _imageWithText(
-                    data[position].imageUri,
-                    '${data[position].title} $position',
+                    "data[position].imageUri",
+                    "", //'${data[position].title} $position',
                     height,
                     function: () {
                       return Navigator.push(

@@ -62,10 +62,6 @@ class _PremiumPhotoIdCameraState extends State<PremiumPhotoIdCamera> {
     if (cameras == null || cameras.isEmpty) {
       return Spacer();
     }
-
-    CameraDescription selectedCamera =
-        CameraDescription(lensDirection: CameraLensDirection.back);
-    CameraLensDirection lensDirection = selectedCamera.lensDirection;
   }
 
   onCapture(context) async {

@@ -37,7 +37,6 @@ class _RewardBenefitState extends State<RewardBenefit> {
 
   @override
   Widget build(BuildContext context) {
-    final _height = MediaQuery.of(context).size.width / 2;
     return DefaultTabController(
         length: data.length,
         child: Scaffold(
@@ -93,7 +92,6 @@ class RewardView extends StatelessWidget {
   RewardView({this.data, this.onProgressChanged});
   @override
   Widget build(BuildContext context) {
-    final _height = MediaQuery.of(context).size.width / 2;
     return Column(
       children: [
         Container(

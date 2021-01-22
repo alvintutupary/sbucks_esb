@@ -23,7 +23,7 @@ class StarText extends StatelessWidget {
           decoration: BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.contain,
-                  image: AssetImage('assets/img/green_star.png'))),
+                  image: AssetImage('assets/icons/star-icon.png'))),
           child: Text(
             value,
             style: TextStyle(fontSize: size * 1.scs, color: Colors.white),

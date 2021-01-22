@@ -59,47 +59,9 @@ class _PremiumSelfieIdCameraState extends State<PremiumSelfieIdCamera> {
     );
   }
 
-  // Widget cameraControl(context) {
-  //   return Expanded(
-  //     child: Align(
-  //       alignment: Alignment.center,
-  //       child: Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //         mainAxisSize: MainAxisSize.max,
-  //         children: <Widget>[
-  //           FloatingActionButton(
-  //             child: Icon(
-  //               Icons.camera,
-  //               color: Colors.black,
-  //             ),
-  //             backgroundColor: Colors.white,
-  //             onPressed: () {
-  //               onCapture(context);
-  //             },
-  //           )
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  Widget cameraToggle() {
-    if (cameras == null || cameras.isEmpty) {
-      return Spacer();
-    }
-
-    CameraDescription selectedCamera =
-        CameraDescription(lensDirection: CameraLensDirection.back);
-    CameraLensDirection lensDirection = selectedCamera.lensDirection;
-  }
-
   onCapture(context) async {
     try {
       await cameraController.takePicture().then((value) {
-        // print(value.path);
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => CropperScreen(value.path)));
-
         Navigator.pop(context, value.path);
       });
     } catch (e) {
@@ -124,12 +86,6 @@ class _PremiumSelfieIdCameraState extends State<PremiumSelfieIdCamera> {
     });
     super.initState();
   }
-
-  // @override
-  // void dispose() {
-  //   cameraController?.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
