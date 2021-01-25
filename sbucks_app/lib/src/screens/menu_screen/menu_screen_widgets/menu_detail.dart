@@ -6,7 +6,7 @@ import 'package:sbucks/src/utils/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MenuDetail extends StatefulWidget {
-  static final kRouteName = '/menuDetail';
+  static const kRouteName = '/menuDetail';
   final MenuModel data;
   MenuDetail({@required this.data});
   @override
@@ -46,29 +46,32 @@ class _MenuDetailState extends State<MenuDetail> {
       ),
       body: Column(
         children: [
-          Container(
-            alignment: Alignment.bottomRight,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              fit: BoxFit.cover,
-              image: widget.data.imageUrl != null &&
-                      widget.data.imageUrl.isNotEmpty &&
-                      widget.data.imageUrl != "${AppConstant.kHttpBaseUrl}/null"
-                  ? NetworkImage(
-                      widget.data.imageUrl,
-                    )
-                  : AssetImage(
-                      AppConstant.kEmptyImage,
-                    ),
-            )),
-            height: MediaQuery.of(context).size.width / 2,
-            width: MediaQuery.of(context).size.width,
-            child: Text(widget.data.menuName,
-                style: TextStyle(
-                    fontSize: 25.scs,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold)),
-          ),
+          FadeInImage.assetNetwork(
+              placeholder: AppConstant.kEmptyImage,
+              image: widget.data.imageUrl),
+          // Container(
+          //   alignment: Alignment.bottomRight,
+          //   decoration: BoxDecoration(
+          //       image: DecorationImage(
+          //     fit: BoxFit.cover,
+          //     image: widget.data.imageUrl != null &&
+          //             widget.data.imageUrl.isNotEmpty &&
+          //             widget.data.imageUrl != "${AppConstant.kHttpBaseUrl}/null"
+          //         ? NetworkImage(
+          //             widget.data.imageUrl,
+          //           )
+          //         : AssetImage(
+          //             AppConstant.kEmptyImage,
+          //           ),
+          //   )),
+          //   height: MediaQuery.of(context).size.width / 2,
+          //   width: MediaQuery.of(context).size.width,
+          //   child: Text(widget.data.menuName,
+          //       style: TextStyle(
+          //           fontSize: 25.scs,
+          //           color: Colors.white,
+          //           fontWeight: FontWeight.bold)),
+          // ),
           Expanded(
             child: Text(widget.data.description),
           ),

@@ -11,10 +11,9 @@ Future<Widget> _buildMenuList(
   BuildContext context,
 ) async {
   final contentBloc = Provider.of<ContentBloc>(context, listen: false);
-  final result = await contentBloc.fetchContentbyType(AppConstant.kWhatsNews);
   double imageSize = 85.scs;
 
-  List<ContentModel> datas = result.body;
+  List<ContentModel> datas = contentBloc.whatsNewsContents;
 
   return ListView.builder(
       itemCount: datas.length,
@@ -85,14 +84,19 @@ Widget circleImage(
         ? Container(
             width: imageSize,
             height: imageSize,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: imagePath != null
-                      ? NetworkImage(imagePath)
-                      : AssetImage(AppConstant.kEmptyImage),
-                )),
+            // decoration: BoxDecoration(
+            //   shape: BoxShape.circle,
+            // ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100.0),
+              child: FadeInImage.assetNetwork(
+                placeholder: AppConstant.kEmptyImage,
+                image: imagePath,
+                width: 50.scs,
+                height: 50.scs,
+                fit: BoxFit.cover,
+              ),
+            ),
           )
         : Container();
 

@@ -6,6 +6,15 @@ import 'package:sbucks/src/models/menu_model.dart';
 
 class MenuBloc {
   final _menuRepository = MenuRepository();
+  List<MenuCategoryModel> _menuCategories;
+
+  List<MenuCategoryModel> get menuCategories {
+    return _menuCategories;
+  }
+
+  set menuCategories(List<MenuCategoryModel> value) {
+    this._menuCategories = value;
+  }
 
   Future<ApiResponse<MenusModel>> fetchMenu() async {
     try {

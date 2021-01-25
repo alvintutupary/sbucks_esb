@@ -3,6 +3,7 @@ import 'package:sbucks/environment_config.dart';
 class AppConstant {
   //Shared Preference Key
   static const kPreferenceIsFirstRun = 'IS_FIRST_RUN';
+  static const kPreferenceIsShakeToPay = 'IS_SHAKE_TO_PAY';
   static const kPreferenceValidationTime = 'PIN_VAL_TIME_LEFT';
 
   static const kPreferenceUserPin = 'USER_PIN';

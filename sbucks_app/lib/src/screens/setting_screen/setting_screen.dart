@@ -10,6 +10,8 @@ import 'package:sbucks/src/utils/size_config.dart';
 import 'package:sbucks/src/widgets/label_button.dart';
 import 'package:sbucks/src/utils/style.dart';
 import 'package:sbucks/src/blocs/app_bloc.dart';
+import 'package:sbucks/src/blocs/content_bloc.dart';
+import 'package:provider/provider.dart';
 
 class SettingScreen extends StatefulWidget {
   @override
@@ -18,11 +20,17 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   bool isSwitched;
+  bool _shakeToPay = false;
 
   @override
   void initState() {
-    isSwitched = false;
+    getIsShakeToPay();
+    isSwitched = _shakeToPay;
     super.initState();
+  }
+
+  getIsShakeToPay() async {
+    _shakeToPay = await appBloc.getShakeToPay();
   }
 
   void doLogOut() async {
@@ -39,25 +47,30 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _contentBloc = Provider.of<ContentBloc>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings'),
       ),
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Shake to Pay'),
-              Switch(
-                value: isSwitched,
-                onChanged: (value) {
-                  setState(() {
-                    isSwitched = value;
-                  });
-                },
-              )
-            ],
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.scw),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Shake to Pay'),
+                Switch(
+                  value: isSwitched,
+                  onChanged: (value) {
+                    setState(() {
+                      isSwitched = value;
+                      appBloc.setShakeToPay(value);
+                    });
+                  },
+                )
+              ],
+            ),
           ),
           _buildList('Change Language', '', () {
             return CustomDialog.common(context,
@@ -96,19 +109,19 @@ class _SettingScreenState extends State<SettingScreen> {
           }),
           _buildList('Faq', '', () {
             return Navigator.pushNamed(context, StaticScreen.kRouteName,
-                arguments: AppConstant.kFaqId);
+                arguments: _contentBloc.faqContents[0]);
           }),
           _buildList('Privacy Policy', '', () {
             return Navigator.pushNamed(context, StaticScreen.kRouteName,
-                arguments: AppConstant.kPrivacyId);
+                arguments: _contentBloc.privacyContents[0]);
           }),
           _buildList('Terms & Condition', '', () {
             return Navigator.pushNamed(context, StaticScreen.kRouteName,
-                arguments: AppConstant.kTacId);
+                arguments: _contentBloc.tacContents[0]);
           }),
           _buildList('Contact Us', '', () {
             return Navigator.pushNamed(context, StaticScreen.kRouteName,
-                arguments: AppConstant.kContactUsId);
+                arguments: _contentBloc.contactUsContents[0]);
           }),
           _buildList('Tutorial', '',
               () => Navigator.pushNamed(context, IntroScreen.kRouteName)),

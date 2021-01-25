@@ -149,6 +149,7 @@ class _LoginDialogState extends State<LoginDialog> {
                     primaryColor: AppColor.kPrimaryBrand,
                   ),
                   child: TextFormField(
+                    expands: false,
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     validator: validateEmail,
@@ -163,6 +164,7 @@ class _LoginDialogState extends State<LoginDialog> {
                     primaryColor: AppColor.kPrimaryBrand,
                   ),
                   child: TextFormField(
+                    expands: false,
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     validator: (value) =>
@@ -198,7 +200,7 @@ class _LoginDialogState extends State<LoginDialog> {
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.sch),
                     child: Text(
-                      'Lupa kata sandi ?',
+                      'Forgot Password ?',
                       style: TextStyle(fontSize: 20.scs, color: Colors.grey),
                     ),
                   ),

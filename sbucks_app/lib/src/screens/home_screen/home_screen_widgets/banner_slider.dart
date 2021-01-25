@@ -27,26 +27,12 @@ class _BannerSliderState extends State<BannerSlider> {
                     child: Stack(
                       children: <Widget>[
                         InkWell(
-                          child: FadeInImage(
-                            placeholder: AssetImage(
-                              item.images[0].imageUrl,
-                            ),
-                            image: NetworkImage(
-                              item.images[0].imageUrl,
-                            ),
+                          child: FadeInImage.assetNetwork(
+                            placeholder: AppConstant.kEmptyImage,
+                            image: item.images[0].imageUrl,
+                            fit: BoxFit.cover,
+                            width: 500.scw,
                           ),
-
-                          // item.images != null && item.images.length > 0
-                          //     ? Image.network(
-                          //         item.images[0].imageUrl,
-                          //         fit: BoxFit.cover,
-                          //         width: 1000.scw,
-                          //       )
-                          //     : Image.asset(
-                          //         AppConstant.kEmptyImage,
-                          //         fit: BoxFit.cover,
-                          //         width: 1000.scw,
-                          //       ),
                           onTap: () => Navigator.pushNamed(
                               context, HomeNews.kRouteName,
                               arguments: item),

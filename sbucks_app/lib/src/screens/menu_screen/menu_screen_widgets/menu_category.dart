@@ -63,15 +63,28 @@ class _MenuCategoryState extends State<MenuCategory> {
 
   _imageWithText(String image, title, double height, {Function function}) =>
       InkWell(
-        child: Container(
-            alignment: Alignment.bottomCenter,
-            decoration:
-                BoxDecoration(image: DecorationImage(image: AssetImage(image))),
-            height: height,
-            child: Text(
+        child: Stack(
+          children: [
+            FadeInImage.assetNetwork(
+                placeholder: AppConstant.kEmptyImage, image: image),
+            Text(
               title,
-              style: TextStyle(color: Colors.white, fontSize: 20.scs),
-            )),
+              style: TextStyle(color: Colors.grey, fontSize: 20.scs),
+            )
+          ],
+        ),
         onTap: function,
       );
+  // InkWell(
+  //   child: Container(
+  //       alignment: Alignment.bottomCenter,
+  //       decoration:
+  //           BoxDecoration(image: DecorationImage(image: AssetImage(image))),
+  //       height: height,
+  //       child: Text(
+  //         title,
+  //         style: TextStyle(color: Colors.white, fontSize: 20.scs),
+  //       )),
+  //   onTap: function,
+  // );
 }

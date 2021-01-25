@@ -14,8 +14,8 @@ import 'package:sbucks/src/utils/utilities.dart';
 
 class StaticScreen extends StatefulWidget {
   static const kRouteName = '/StaticScreen';
-  final int contentID;
-  const StaticScreen(this.contentID);
+  final ContentModel content;
+  const StaticScreen(this.content);
 
   @override
   SstaticPageStateScreen createState() => SstaticPageStateScreen();
@@ -52,10 +52,10 @@ class SstaticPageStateScreen extends State<StaticScreen> {
   }
 
   Future<Widget> buildContent() async {
-    final contentBloc = Provider.of<ContentBloc>(context, listen: false);
-    final result = await contentBloc.fetchContentbyId(widget.contentID);
+    // final contentBloc = Provider.of<ContentBloc>(context, listen: false);
+    // final result = await contentBloc.fetchContentbyType(widget.contentTypeID);
 
-    ContentModel data = result.body;
+    ContentModel data = widget.content;
     if (data == null) {
       return Center(
         child: CircularProgressIndicator(),

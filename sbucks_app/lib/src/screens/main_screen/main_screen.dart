@@ -11,6 +11,7 @@ import 'package:sbucks/src/screens/menu_screen/menu_screen.dart';
 import 'package:sbucks/src/screens/payment_screen/payment_screen.dart';
 import 'package:sbucks/src/screens/reward_screen/reward_screen.dart';
 import 'package:sbucks/src/screens/store_screen/store_screen.dart';
+import 'package:sbucks/src/blocs/app_bloc.dart';
 import 'package:shake/shake.dart';
 
 class MainScreen extends StatefulWidget {
@@ -31,6 +32,7 @@ class _MainScreenState extends State<MainScreen> {
   MenuPositionController _menuPositionController;
   bool userPageDragging = false;
   bool _showDialog;
+  bool _isShakeTopay = false;
   ShakeDetector detector;
 
   @override
@@ -41,40 +43,47 @@ class _MainScreenState extends State<MainScreen> {
         PageController(initialPage: 0, keepPage: false, viewportFraction: 1.0);
     _pageController.addListener(handlePageChange);
 
+    getShakeToPay() async {
+      _isShakeTopay = await appBloc.getShakeToPay();
+    }
+
     _showDialog = false;
-    detector = ShakeDetector.autoStart(
-        onPhoneShake: () {
-          _showDialog = !_showDialog;
-          if (_showDialog) {
-            showDialog(
-                context: context,
-                builder: (_) => new AlertDialog(
-                    title: new Text(
-                      "Scan this to redeem reward or pay",
-                      style: TextStyle(fontSize: 14),
-                      textAlign: TextAlign.center,
-                    ),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        BarcodeWidget(
-                          barcode: Barcode.pdf417(),
-                          data: '6232020671965087',
-                        ),
-                        RaisedButton(
-                          child: Text('Cancel'),
-                          onPressed: () {
-                            Navigator.pop(context);
-                            _showDialog = false;
-                          },
-                        )
-                      ],
-                    )));
-          } else {
-            Navigator.of(context).pop();
-          }
-        },
-        shakeCountResetTime: 500);
+    getShakeToPay();
+    if (_isShakeTopay) {
+      detector = ShakeDetector.autoStart(
+          onPhoneShake: () {
+            _showDialog = !_showDialog;
+            if (_showDialog) {
+              showDialog(
+                  context: context,
+                  builder: (_) => new AlertDialog(
+                      title: new Text(
+                        "Scan this to redeem reward or pay",
+                        style: TextStyle(fontSize: 14),
+                        textAlign: TextAlign.center,
+                      ),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          BarcodeWidget(
+                            barcode: Barcode.pdf417(),
+                            data: '6232020671965087',
+                          ),
+                          RaisedButton(
+                            child: Text('Cancel'),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              _showDialog = false;
+                            },
+                          )
+                        ],
+                      )));
+            } else {
+              Navigator.of(context).pop();
+            }
+          },
+          shakeCountResetTime: 500);
+    }
 
     super.initState();
   }

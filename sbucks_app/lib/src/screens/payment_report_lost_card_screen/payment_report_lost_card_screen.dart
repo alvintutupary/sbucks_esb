@@ -58,7 +58,7 @@ class _PaymentReportLostCardScreenState
               trailing: Icon(Icons.arrow_drop_down),
             ),
           ),
-          Image.asset('assets/img/sbuck-card.jpg'),
+          Image.asset('assets/img/sbuck-card-1.jpg'),
           Container(
             color: Colors.brown,
             child: ListTile(

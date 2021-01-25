@@ -43,6 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
         final resPrivacy =
             await _contentBloc.fetchContentbyType(AppConstant.kPrivacy);
         final resTac = await _contentBloc.fetchContentbyType(AppConstant.kTac);
+        final resMenu = await _menuBloc.fetchMenu();
 
         _contentBloc.rewardBenefitContents = resRewardBenefit.body;
         _contentBloc.tacContents = resTac.body;
@@ -51,6 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
         _contentBloc.faqContents = resFAQ.body;
         _contentBloc.contactUsContents = resContactUs.body;
         _contentBloc.privacyContents = resPrivacy.body;
+        _menuBloc.menuCategories = resMenu.body.menuCategory;
         Navigator.pushReplacementNamed(context, LoginPin.kRouteName);
       }
     }

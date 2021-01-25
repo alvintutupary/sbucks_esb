@@ -42,7 +42,7 @@ class MenuCategoryModel {
         menuCategoryId: json["menuCategoryID"],
         menuCategoryDesc: json["menuCategoryDesc"],
         imageUrl: json["imageUrl"] != "" || json["imageUrl"] != null
-            ? "${AppConstant.kHttpBaseUrl}/${json["imageUrl"]}"
+            ? json["imageUrl"]
             : "",
         description: json["description"] ?? '',
         menuCategoryDetails: List<MenuCategoryDetailModel>.from(
@@ -75,7 +75,7 @@ class MenuCategoryDetailModel {
       MenuCategoryDetailModel(
         menuCategoryDetailDesc: json["menuCategoryDetailDesc"],
         imageUrl: json["imageUrl"] != "" || json["imageUrl"] != null
-            ? "${AppConstant.kHttpBaseUrl}/${json["imageUrl"]}"
+            ? json["imageUrl"]
             : "",
         description: json["description"] == null ? null : json["description"],
         menus: List<MenuModel>.from(

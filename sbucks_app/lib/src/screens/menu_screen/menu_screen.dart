@@ -62,13 +62,13 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   Future<Widget> buildMenuList() async {
-    final _storeBloc = Provider.of<MenuBloc>(context, listen: false);
-    final result = await _storeBloc.fetchMenu();
-    List<MenuCategoryModel> categories = result.body.menuCategory;
+    final _menuBloc = Provider.of<MenuBloc>(context, listen: false);
+    // final result = await _storeBloc.fetchMenu();
+    List<MenuCategoryModel> categories = _menuBloc.menuCategories;
 
     final _height = MediaQuery.of(context).size.width / 2;
     final _screenHeight = MediaQuery.of(context).size.height;
-
+    final corouselMenuList = categories.getRange(1, (categories.length - 1));
     return ListView(
       children: [
         _imageWithText(
@@ -81,11 +81,12 @@ class _MenuScreenState extends State<MenuScreen> {
                         data: categories[0],
                       )));
         }),
-        _buildNextMenu(
-          categories,
-          _screenHeight,
-          _height,
-        )
+        if (corouselMenuList != null && corouselMenuList.length > 0)
+          _buildNextMenu(
+            corouselMenuList,
+            _screenHeight,
+            _height,
+          )
       ],
     );
   }
@@ -123,6 +124,17 @@ class _MenuScreenState extends State<MenuScreen> {
 
   _imageWithText(String image, title, double height, {Function function}) =>
       InkWell(
+        // child: Stack(
+        //   children: [
+        //     FadeInImage.assetNetwork(
+        //         placeholder: AppConstant.kEmptyImage, image: image),
+        //     Text(
+        //       title,
+        //       style: TextStyle(color: Colors.grey, fontSize: 20.scs),
+        //     )
+        //   ],
+        // ),
+        onTap: function,
         child: Container(
             alignment: Alignment.bottomCenter,
             decoration: BoxDecoration(
@@ -143,6 +155,5 @@ class _MenuScreenState extends State<MenuScreen> {
               title,
               style: TextStyle(color: Colors.white, fontSize: 20.scs),
             )),
-        onTap: function,
       );
 }

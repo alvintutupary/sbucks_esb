@@ -59,7 +59,7 @@ class _PaymentAddScreenState extends State<PaymentAddScreen> {
                     AppSpacer.vSpacing(15),
                     Center(
                       child: RoundedBorderButton(
-                        text: 'KIRIM',
+                        text: 'SEND',
                         color: Colors.green[700],
                         borderColor: Colors.white,
                         textColor: Colors.white,

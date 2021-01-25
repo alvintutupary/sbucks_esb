@@ -21,6 +21,7 @@ import 'package:sbucks/src/screens/splash_screen/splash_screen.dart';
 import 'package:sbucks/src/screens/transaction_history_screen/transaction_history_screen.dart';
 import 'package:sbucks/src/screens/home_screen/home_screen_widgets/home_news.dart';
 import 'package:sbucks/src/screens/static_screen/static_screen.dart';
+import 'package:sbucks/src/screens/menu_screen/menu_screen_widgets/menu_detail.dart';
 
 Route<dynamic> generateRoutes(RouteSettings settings) {
   // AppTextStyle.setStatusBarColor(AppColor.kStatusBarAccentColor, false);
@@ -86,6 +87,13 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
           HomeNews.kRouteName,
           HomeNews(
             content: settings.arguments,
+          ));
+
+    case MenuDetail.kRouteName:
+      return _buildMaterialPageRoute(
+          MenuDetail.kRouteName,
+          MenuDetail(
+            data: settings.arguments,
           ));
     case TransactionHistoryScreen.kRouteName:
       return _buildMaterialPageRoute(

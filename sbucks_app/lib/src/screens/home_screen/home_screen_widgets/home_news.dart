@@ -54,18 +54,26 @@ class _HomeNewsState extends State<HomeNews> {
     return Column(
       children: [
         Container(
+          // padding: EdgeInsets.all(0),
           alignment: Alignment.bottomRight,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(data.images[0].imageUrl))),
+          // decoration: BoxDecoration(
+          //     image: DecorationImage(
+          //         fit: BoxFit.cover,
+          //         image: NetworkImage(data.images[0].imageUrl))),
           height: MediaQuery.of(context).size.width / 2,
           width: MediaQuery.of(context).size.width,
-          child: Text(data.titleEn,
-              style: TextStyle(
-                  fontSize: 25.scs,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold)),
+          child: ClipRRect(
+            child: FadeInImage.assetNetwork(
+                placeholder: AppConstant.kEmptyImage,
+                image: data.images[0].imageUrl),
+          ),
+        ),
+        Text(
+          data.titleEn,
+          style: TextStyle(
+            fontSize: 25.scs,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         Expanded(
           child: Html(

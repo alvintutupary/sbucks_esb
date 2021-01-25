@@ -41,6 +41,16 @@ class AppBloc {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove(AppConstant.kPreferenceUserToken);
   }
+
+  Future<bool> getShakeToPay() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(AppConstant.kPreferenceUserToken) ?? false;
+  }
+
+  void setShakeToPay(bool isShakeToPay) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(AppConstant.kPreferenceIsShakeToPay, isShakeToPay);
+  }
 }
 
 AppBloc appBloc = AppBloc();

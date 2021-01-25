@@ -33,7 +33,7 @@ class ContentBloc {
   }
 
   set welcomeScreenContents(List<ContentModel> value) {
-    this._contentsModel = value;
+    this._welcomeScreenContents = value;
   }
 
   List<ContentModel> get loginContents {
@@ -41,7 +41,7 @@ class ContentBloc {
   }
 
   set loginContents(List<ContentModel> value) {
-    this._contentsModel = value;
+    this._loginContents = value;
   }
 
   List<ContentModel> get directMarketingContents {
@@ -49,7 +49,7 @@ class ContentBloc {
   }
 
   set directMarketingContents(List<ContentModel> value) {
-    this._contentsModel = value;
+    this._directMarketingContents = value;
   }
 
   List<ContentModel> get tacContents {
@@ -57,7 +57,7 @@ class ContentBloc {
   }
 
   set tacContents(List<ContentModel> value) {
-    this._contentsModel = value;
+    this._tacContents = value;
   }
 
   List<ContentModel> get whatsNewsContents {
@@ -65,7 +65,7 @@ class ContentBloc {
   }
 
   set whatsNewsContents(List<ContentModel> value) {
-    this._contentsModel = value;
+    this._whatsNewsContents = value;
   }
 
   List<ContentModel> get carouselImagesContents {
@@ -73,7 +73,7 @@ class ContentBloc {
   }
 
   set carouselImagesContents(List<ContentModel> value) {
-    this._contentsModel = value;
+    this._carouselImagesContents = value;
   }
 
   List<ContentModel> get rewardBenefitContents {
@@ -81,7 +81,7 @@ class ContentBloc {
   }
 
   set rewardBenefitContents(List<ContentModel> value) {
-    this._contentsModel = value;
+    this._rewardBenefitContents = value;
   }
 
   List<ContentModel> get faqContents {
@@ -89,7 +89,7 @@ class ContentBloc {
   }
 
   set faqContents(List<ContentModel> value) {
-    this._contentsModel = value;
+    this._faqContents = value;
   }
 
   List<ContentModel> get lostCardReasonContents {
@@ -97,7 +97,7 @@ class ContentBloc {
   }
 
   set lostCardReasonContents(List<ContentModel> value) {
-    this._contentsModel = value;
+    this._lostCardReasonContents = value;
   }
 
   List<ContentModel> get contactUsContents {
@@ -105,7 +105,7 @@ class ContentBloc {
   }
 
   set contactUsContents(List<ContentModel> value) {
-    this._contentsModel = value;
+    this._contactUsContents = value;
   }
 
   List<ContentModel> get privacyContents {
@@ -113,7 +113,7 @@ class ContentBloc {
   }
 
   set privacyContents(List<ContentModel> value) {
-    this._contentsModel = value;
+    this._privacyContents = value;
   }
 
   Stream<ApiResponse<ContentsModel>> get contentList => _contentList.stream;
