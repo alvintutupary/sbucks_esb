@@ -11,7 +11,7 @@ Future<Widget> _buildMenuList(
   BuildContext context,
 ) async {
   final contentBloc = Provider.of<ContentBloc>(context, listen: false);
-  final result = await contentBloc.fetchContentbyType(AppConstant.kWhatsNew);
+  final result = await contentBloc.fetchContentbyType(AppConstant.kWhatsNews);
   double imageSize = 85.scs;
 
   List<ContentModel> datas = result.body;
@@ -90,7 +90,7 @@ Widget circleImage(
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: imagePath != null
-                      ? Image.network(imagePath)
+                      ? NetworkImage(imagePath)
                       : AssetImage(AppConstant.kEmptyImage),
                 )),
           )

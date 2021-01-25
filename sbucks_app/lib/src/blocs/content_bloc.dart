@@ -8,12 +8,111 @@ class ContentBloc {
   final _contentList = BehaviorSubject<ApiResponse<ContentsModel>>();
   final _isLoading = BehaviorSubject<bool>.seeded(false);
   List<ContentModel> _contentsModel;
+  List<ContentModel> _welcomeScreenContents;
+  List<ContentModel> _loginContents;
+  List<ContentModel> _directMarketingContents;
+  List<ContentModel> _tacContents;
+  List<ContentModel> _whatsNewsContents;
+  List<ContentModel> _carouselImagesContents;
+  List<ContentModel> _rewardBenefitContents;
+  List<ContentModel> _faqContents;
+  List<ContentModel> _lostCardReasonContents;
+  List<ContentModel> _contactUsContents;
+  List<ContentModel> _privacyContents;
 
   List<ContentModel> get contents {
     return _contentsModel;
   }
 
   set contents(List<ContentModel> value) {
+    this._contentsModel = value;
+  }
+
+  List<ContentModel> get welcomeScreenContents {
+    return _welcomeScreenContents;
+  }
+
+  set welcomeScreenContents(List<ContentModel> value) {
+    this._contentsModel = value;
+  }
+
+  List<ContentModel> get loginContents {
+    return _loginContents;
+  }
+
+  set loginContents(List<ContentModel> value) {
+    this._contentsModel = value;
+  }
+
+  List<ContentModel> get directMarketingContents {
+    return _directMarketingContents;
+  }
+
+  set directMarketingContents(List<ContentModel> value) {
+    this._contentsModel = value;
+  }
+
+  List<ContentModel> get tacContents {
+    return _tacContents;
+  }
+
+  set tacContents(List<ContentModel> value) {
+    this._contentsModel = value;
+  }
+
+  List<ContentModel> get whatsNewsContents {
+    return _whatsNewsContents;
+  }
+
+  set whatsNewsContents(List<ContentModel> value) {
+    this._contentsModel = value;
+  }
+
+  List<ContentModel> get carouselImagesContents {
+    return _carouselImagesContents;
+  }
+
+  set carouselImagesContents(List<ContentModel> value) {
+    this._contentsModel = value;
+  }
+
+  List<ContentModel> get rewardBenefitContents {
+    return _rewardBenefitContents;
+  }
+
+  set rewardBenefitContents(List<ContentModel> value) {
+    this._contentsModel = value;
+  }
+
+  List<ContentModel> get faqContents {
+    return _faqContents;
+  }
+
+  set faqContents(List<ContentModel> value) {
+    this._contentsModel = value;
+  }
+
+  List<ContentModel> get lostCardReasonContents {
+    return _lostCardReasonContents;
+  }
+
+  set lostCardReasonContents(List<ContentModel> value) {
+    this._contentsModel = value;
+  }
+
+  List<ContentModel> get contactUsContents {
+    return _contactUsContents;
+  }
+
+  set contactUsContents(List<ContentModel> value) {
+    this._contentsModel = value;
+  }
+
+  List<ContentModel> get privacyContents {
+    return _privacyContents;
+  }
+
+  set privacyContents(List<ContentModel> value) {
     this._contentsModel = value;
   }
 
@@ -32,7 +131,7 @@ class ContentBloc {
 
   Future<ApiResponse<ContentModel>> fetchContentbyId(int contentID) async {
     try {
-      final result = await _contentRepository.content();
+      final result = await _contentRepository.content(contentID: contentID);
 
       if (result != null) {
         return ApiResponse.complete(result.content[0][0]);
@@ -44,23 +143,6 @@ class ContentBloc {
       return ApiResponse.error(e.toString());
     }
   }
-
-  // Future<ApiResponse<List<ContentModel>>> fetchContentbyType(
-  //     int contentTypeID) async {
-  //   try {
-  //     final result =
-  //         await _contentRepository.content(contentTypeID: contentTypeID);
-
-  //     if (result != null) {
-  //       return ApiResponse.complete(result.content[0]);
-  //     } else {
-  //       return ApiResponse.error('TRY_AGAIN_LATER');
-  //     }
-  //   } catch (e) {
-  //     print('Error: ${e.toString()}');
-  //     return ApiResponse.error(e.toString());
-  //   }
-  // }
 
   Future<ApiResponse<List<ContentModel>>> fetchContentbyType(
       int contentTypeID) async {
@@ -75,18 +157,8 @@ class ContentBloc {
       }
     } catch (e) {
       print('Error: ${e.toString()}');
-      return ApiResponse.error(e.toString());
+      throw ApiResponse.error(e.toString());
     }
-  }
-
-  Stream<bool> get isLoading => _isLoading.stream;
-  void setLoading(bool isLoading) {
-    _isLoading.add(isLoading);
-  }
-
-  void dispose() {
-    _contentList.close();
-    _isLoading.close();
   }
 }
 

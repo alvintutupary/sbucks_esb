@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:sbucks/src/utils/constant.dart';
 
 ContentsModel ContentsModelFromJson(String str) =>
     ContentsModel.fromJson(json.decode(str));
@@ -80,7 +81,7 @@ class ImageModel {
   String imageUrl;
 
   factory ImageModel.fromJson(Map<String, dynamic> json) => ImageModel(
-        imageUrl: json["imageUrl"],
+        imageUrl: '${AppConstant.kHttpBaseUrl}/${json["imageUrl"]}',
       );
 
   Map<String, dynamic> toJson() => {

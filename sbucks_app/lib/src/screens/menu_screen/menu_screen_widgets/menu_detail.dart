@@ -50,9 +50,17 @@ class _MenuDetailState extends State<MenuDetail> {
             alignment: Alignment.bottomRight,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(
-                        widget.data.imageUri ?? AppConstant.kEmptyImage))),
+              fit: BoxFit.cover,
+              image: widget.data.imageUrl != null &&
+                      widget.data.imageUrl.isNotEmpty &&
+                      widget.data.imageUrl != "${AppConstant.kHttpBaseUrl}/null"
+                  ? NetworkImage(
+                      widget.data.imageUrl,
+                    )
+                  : AssetImage(
+                      AppConstant.kEmptyImage,
+                    ),
+            )),
             height: MediaQuery.of(context).size.width / 2,
             width: MediaQuery.of(context).size.width,
             child: Text(widget.data.menuName,

@@ -35,87 +35,81 @@ class _HomeNewsState extends State<HomeNews> {
         title: Container(
           alignment: Alignment.centerLeft,
           child: Text(
-            'widget.content.title',
+            widget.content.titleEn,
             style: TextStyle(color: Colors.black, fontSize: 25.scs),
           ),
         ),
       ),
-      body: Container(),
+      body: FutureBuilder(
+          future: buildContent(widget.content),
+          builder: (context, snapshot) => snapshot.hasData
+              ? snapshot.data
+              : Center(
+                  child: CircularProgressIndicator(),
+                )),
     );
-    // FutureBuilder(
-    //     future: buildContent(),
-    //     builder: (context, snapshot) => snapshot.hasData
-    //         ? snapshot.data
-    //         : Center(
-    //             child: CircularProgressIndicator(),
-    //           )));
   }
 
-  // Future<Widget> buildContent() async {
-  //   final contentBloc = Provider.of<ContentBloc>(context, listen: false);
-  //   final result = await contentBloc.fetchContent(widget.content.contentID);
-  //   // double imageSize = 85.scs;
-
-  //   ContentDetailModel data = result.body;
-  //   return Column(
-  //     children: [
-  //       Container(
-  //         alignment: Alignment.bottomRight,
-  //         decoration: BoxDecoration(
-  //             image: DecorationImage(
-  //                 fit: BoxFit.cover, image: AssetImage(data.contentImages[0]))),
-  //         height: MediaQuery.of(context).size.width / 2,
-  //         width: MediaQuery.of(context).size.width,
-  //         child: Text(data.title,
-  //             style: TextStyle(
-  //                 fontSize: 25.scs,
-  //                 color: Colors.white,
-  //                 fontWeight: FontWeight.bold)),
-  //       ),
-  //       Expanded(
-  //         child: Html(
-  //           data: data.description,
-  //           //Optional parameters:
-  //           style: {
-  //             "table": Style(
-  //               backgroundColor: Color.fromARGB(0x50, 0xee, 0xee, 0xee),
-  //             ),
-  //             "tr": Style(
-  //               border: Border(bottom: BorderSide(color: Colors.grey)),
-  //             ),
-  //             "th": Style(
-  //               padding: EdgeInsets.all(6),
-  //               backgroundColor: Colors.grey,
-  //             ),
-  //             "td": Style(
-  //               padding: EdgeInsets.all(6),
-  //             ),
-  //             "var": Style(fontFamily: 'serif'),
-  //           },
-  //           customRender: {
-  //             "flutter": (RenderContext context, Widget child, attributes, _) {
-  //               return FlutterLogo(
-  //                 style: (attributes['horizontal'] != null)
-  //                     ? FlutterLogoStyle.horizontal
-  //                     : FlutterLogoStyle.markOnly,
-  //                 textColor: context.style.color,
-  //                 size: context.style.fontSize.size * 5,
-  //               );
-  //             },
-  //           },
-  //           onLinkTap: (url) {
-  //             print("Opening $url...");
-  //           },
-  //           onImageTap: (src) {
-  //             print(src);
-  //           },
-  //           onImageError: (exception, stackTrace) {
-  //             print(exception);
-  //           },
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
+  Future<Widget> buildContent(ContentModel data) async {
+    return Column(
+      children: [
+        Container(
+          alignment: Alignment.bottomRight,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(data.images[0].imageUrl))),
+          height: MediaQuery.of(context).size.width / 2,
+          width: MediaQuery.of(context).size.width,
+          child: Text(data.titleEn,
+              style: TextStyle(
+                  fontSize: 25.scs,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold)),
+        ),
+        Expanded(
+          child: Html(
+            data: data.descriptionEn,
+            //Optional parameters:
+            style: {
+              "table": Style(
+                backgroundColor: Color.fromARGB(0x50, 0xee, 0xee, 0xee),
+              ),
+              "tr": Style(
+                border: Border(bottom: BorderSide(color: Colors.grey)),
+              ),
+              "th": Style(
+                padding: EdgeInsets.all(6),
+                backgroundColor: Colors.grey,
+              ),
+              "td": Style(
+                padding: EdgeInsets.all(6),
+              ),
+              "var": Style(fontFamily: 'serif'),
+            },
+            customRender: {
+              "flutter": (RenderContext context, Widget child, attributes, _) {
+                return FlutterLogo(
+                  style: (attributes['horizontal'] != null)
+                      ? FlutterLogoStyle.horizontal
+                      : FlutterLogoStyle.markOnly,
+                  textColor: context.style.color,
+                  size: context.style.fontSize.size * 5,
+                );
+              },
+            },
+            onLinkTap: (url) {
+              print("Opening $url...");
+            },
+            onImageTap: (src) {
+              print(src);
+            },
+            onImageError: (exception, stackTrace) {
+              print(exception);
+            },
+          ),
+        ),
+      ],
+    );
+  }
 }

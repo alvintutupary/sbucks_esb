@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:sbucks/src/utils/constant.dart';
 
 MenusModel MenusModelFromJson(String str) =>
     MenusModel.fromJson(json.decode(str));
@@ -27,20 +28,23 @@ class MenuCategoryModel {
   String menuCategoryDesc;
   String description;
   List<MenuCategoryDetailModel> menuCategoryDetails;
-  String imageUri;
+  String imageUrl;
 
   MenuCategoryModel(
       {this.menuCategoryId,
       this.menuCategoryDesc,
       this.description,
       this.menuCategoryDetails,
-      this.imageUri});
+      this.imageUrl});
 
   factory MenuCategoryModel.fromJson(Map<String, dynamic> json) =>
       MenuCategoryModel(
         menuCategoryId: json["menuCategoryID"],
         menuCategoryDesc: json["menuCategoryDesc"],
-        description: json["description"] == null ? null : json["description"],
+        imageUrl: json["imageUrl"] != "" || json["imageUrl"] != null
+            ? "${AppConstant.kHttpBaseUrl}/${json["imageUrl"]}"
+            : "",
+        description: json["description"] ?? '',
         menuCategoryDetails: List<MenuCategoryDetailModel>.from(
             json["menuCategoryDetails"]
                 .map((x) => MenuCategoryDetailModel.fromJson(x))),
@@ -60,16 +64,19 @@ class MenuCategoryDetailModel {
       {this.menuCategoryDetailDesc,
       this.description,
       this.menus,
-      this.imageUri});
+      this.imageUrl});
 
   String menuCategoryDetailDesc;
   String description;
   List<MenuModel> menus;
-  String imageUri;
+  String imageUrl;
 
   factory MenuCategoryDetailModel.fromJson(Map<String, dynamic> json) =>
       MenuCategoryDetailModel(
         menuCategoryDetailDesc: json["menuCategoryDetailDesc"],
+        imageUrl: json["imageUrl"] != "" || json["imageUrl"] != null
+            ? "${AppConstant.kHttpBaseUrl}/${json["imageUrl"]}"
+            : "",
         description: json["description"] == null ? null : json["description"],
         menus: List<MenuModel>.from(
             json["menus"].map((x) => MenuModel.fromJson(x))),
@@ -88,7 +95,7 @@ class MenuModel {
   String menuShortName;
   String description;
   int orderId;
-  String imageUri;
+  String imageUrl;
 
   MenuModel(
       {this.menuId,
@@ -96,7 +103,7 @@ class MenuModel {
       this.menuShortName,
       this.description,
       this.orderId,
-      this.imageUri});
+      this.imageUrl});
 
   factory MenuModel.fromJson(Map<String, dynamic> json) => MenuModel(
         menuId: json["menuID"],

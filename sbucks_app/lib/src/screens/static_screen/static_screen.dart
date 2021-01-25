@@ -34,68 +34,65 @@ class SstaticPageStateScreen extends State<StaticScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Container(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            'Term And Condition',
+          // title: Container(
+          //   alignment: Alignment.centerLeft,
+          //   child: Text(
+          //     'Term And Condition',
+          //   ),
+          // ),
           ),
-        ),
+      body: FutureBuilder<Widget>(
+        future: buildContent(),
+        builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
+          if (snapshot.hasData) return snapshot.data;
+          return Center(child: CircularProgressIndicator());
+        },
       ),
-      body: Container(),
     );
-    //    FutureBuilder<Widget>(
-    //     future: buildContent(),
-    //     builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-    //       if (snapshot.hasData) return snapshot.data;
-    //       return Center(child: CircularProgressIndicator());
-    //     },
-    //   ),
-    // );
   }
 
-  // Future<Widget> buildContent() async {
-  //   final contentBloc = Provider.of<ContentBloc>(context, listen: false);
-  //   final result = await contentBloc.fetchContent(widget.contentID);
+  Future<Widget> buildContent() async {
+    final contentBloc = Provider.of<ContentBloc>(context, listen: false);
+    final result = await contentBloc.fetchContentbyId(widget.contentID);
 
-  //   ContentDetailModel data = result.body;
-  //   if (data == null) {
-  //     return Center(
-  //       child: CircularProgressIndicator(),
-  //     );
-  //   } else {
-  //     return SingleChildScrollView(
-  //       child: Column(
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: [
-  //           Text(
-  //             data.title,
-  //             style: TextStyle(
-  //               fontSize: 30.scs,
-  //               fontWeight: FontWeight.bold,
-  //             ),
-  //           ),
-  //           Text(data.createdDate),
-  //           Html(
-  //             data: data.description,
+    ContentModel data = result.body;
+    if (data == null) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    } else {
+      return SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              data.titleEn,
+              style: TextStyle(
+                fontSize: 30.scs,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text('data.createdAt'),
+            Html(
+              data: data.descriptionEn,
 
-  //             //Optional parameters:
-  //             // backgroundColor: Colors.white70,
-  //             onLinkTap: (url) {
-  //               Utilities().launchURL(url);
-  //             },
-  //             style: {
-  //               "a": Style(
-  //                   textDecorationColor: Colors.greenAccent[600],
-  //                   color: Colors.greenAccent[600]),
-  //             },
-  //             onImageTap: (src) {
-  //               Utilities().launchURL(src);
-  //             },
-  //           ),
-  //         ],
-  //       ),
-  //     );
-  //   }
-  // }
-
+              //Optional parameters:
+              // backgroundColor: Colors.white70,
+              onLinkTap: (url) {
+                Utilities().launchURL(url);
+              },
+              style: {
+                "a": Style(
+                    textDecorationColor: Colors.greenAccent[600],
+                    color: Colors.greenAccent[600]),
+              },
+              onImageTap: (src) {
+                Utilities().launchURL(src);
+              },
+            ),
+          ],
+        ),
+      );
+    }
+  }
 }

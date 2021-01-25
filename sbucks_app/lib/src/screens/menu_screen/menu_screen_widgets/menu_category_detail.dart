@@ -49,7 +49,7 @@ class _MenuCategoryDetailState extends State<MenuCategoryDetail> {
                     crossAxisCount: 2),
                 itemBuilder: (context, position) {
                   return _imageWithText(
-                    data[position].imageUri ?? AppConstant.kEmptyImage,
+                    data[position].imageUrl ?? AppConstant.kEmptyImage,
                     '${data[position].menuName}',
                     height,
                     function: () {

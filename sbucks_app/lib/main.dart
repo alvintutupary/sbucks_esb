@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as orientaion;
@@ -10,6 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:sbucks/src/blocs/account_bloc.dart';
 import 'package:sbucks/src/blocs/content_bloc.dart';
+import 'package:sbucks/src/blocs/store_bloc.dart';
+import 'package:sbucks/src/blocs/menu_bloc.dart';
 
 void main() {
   return runApp(
@@ -33,6 +34,8 @@ class MyApp extends StatelessWidget {
           providers: [
             Provider<AccountBloc>(create: (_) => AccountBloc()),
             Provider<ContentBloc>(create: (_) => ContentBloc()),
+            Provider<StoreBloc>(create: (_) => StoreBloc()),
+            Provider<MenuBloc>(create: (_) => MenuBloc()),
           ],
           child: MaterialApp(
             title: 'Star Bucks App',

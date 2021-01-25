@@ -10,6 +10,7 @@ import 'package:sbucks/src/widgets/common/app_spacer.dart';
 import 'package:sbucks/src/blocs/app_bloc.dart';
 import 'package:sbucks/src/blocs/content_bloc.dart';
 import 'package:sbucks/src/screens/main_screen/main_screen.dart';
+import 'package:sbucks/src/utils/constant.dart';
 
 class LoginPin extends StatefulWidget {
   static const kRouteName = '/LoginPin';
@@ -51,9 +52,10 @@ class _LoginPinState extends State<LoginPin> {
     if (currentText != savedPin) {
       errorController.add(ErrorAnimationType.shake);
     } else {
-      final res = await contentBloc.fetchContentbyType(1);
-      contentBloc.contents = res.body;
-      return Navigator.pushNamed(context, MainScreen.kRouteName);
+      // final res = await contentBloc.fetchContentbyType(AppConstant.kWhatsNew);
+      // contentBloc.contents = res.body;
+      return Navigator.pushNamedAndRemoveUntil(
+          context, MainScreen.kRouteName, (route) => false);
     }
   }
 
@@ -87,6 +89,7 @@ class _LoginPinState extends State<LoginPin> {
                 child: Padding(
                     padding: EdgeInsets.all(8.scs),
                     child: PinCodeTextField(
+                      autoDisposeControllers: true,
                       appContext: context,
                       pastedTextStyle: TextStyle(
                         color: Colors.green.shade600,

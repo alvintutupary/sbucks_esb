@@ -6,6 +6,8 @@ import 'package:sbucks/src/widgets/common/app_text_field.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:sbucks/src/models/store_model.dart';
 import 'package:sbucks/src/screens/store_screen/store_screen_widgets/store_detail.dart';
+import 'package:provider/provider.dart';
+import 'package:sbucks/src/blocs/store_bloc.dart';
 
 class StoreScreen extends StatefulWidget {
   @override
@@ -14,7 +16,6 @@ class StoreScreen extends StatefulWidget {
 
 class StoreScreenState extends State<StoreScreen> {
   Completer<GoogleMapController> _controllerGoogleMap = Completer();
-  final datas = StoreModel();
   String search;
 
   GoogleMapController newGoogleMapController;
@@ -42,32 +43,44 @@ class StoreScreenState extends State<StoreScreen> {
     target: LatLng(-6.244176, 106.625622),
     zoom: 14.4746,
   );
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final _markers = datas.outlet
-        .map((data) => Marker(
-              markerId: MarkerId(data.branchCode),
-              position: LatLng(data.longitude, data.latitude),
-              infoWindow: InfoWindow(
-                  title: data.branchName,
-                  snippet: data.distanceText,
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => StoreDetail(data)));
-                  }),
-              icon: BitmapDescriptor.defaultMarker,
-            ))
-        .toSet();
-
     final searchField = TextFormField(
       autofocus: false,
       validator: (value) => value.isEmpty ? "Please distric password" : null,
       onSaved: (value) => search = value,
       decoration: buildInputDecoration(hintText: "distric", icon: Icons.search),
     );
-    return new Scaffold(
-      body: Column(
+
+    Future<Widget> buildContent() async {
+      final _storeBloc = Provider.of<StoreBloc>(context, listen: false);
+      final result = await _storeBloc.fetchStore();
+      List<OutletModel> outlets = result.body.outlet;
+
+      final _markers = outlets
+          .map((outlet) => Marker(
+                markerId: MarkerId(outlet.branchCode),
+                position: LatLng(outlet.longitude, outlet.latitude),
+                infoWindow: InfoWindow(
+                    title: outlet.branchName,
+                    snippet: outlet.distanceText,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => StoreDetail(outlet)));
+                    }),
+                icon: BitmapDescriptor.defaultMarker,
+              ))
+          .toSet();
+
+      return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -107,28 +120,35 @@ class StoreScreenState extends State<StoreScreen> {
           Expanded(
             // height: 340.sch,
             child: ListView.builder(
-              itemCount: datas.outlet.length,
+              itemCount: outlets.length,
               itemBuilder: (context, index) => _buildListStore(
-                  datas.outlet[index].branchName,
-                  datas.outlet[index].branchName,
-                  datas.outlet[index].branchCode,
-                  datas.outlet[index].branchCode,
-                  datas.outlet[index].branchCode,
-                  datas.outlet[index].branchCode, onTap: () {
+                  outlets[index].branchName,
+                  outlets[index].branchName,
+                  outlets[index].branchCode,
+                  outlets[index].branchCode,
+                  outlets[index].branchCode,
+                  outlets[index].branchCode, onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => StoreDetail(datas.outlet[index])));
+                        builder: (_) => StoreDetail(outlets[index])));
               }),
             ),
           )
         ],
+      );
+    }
+
+    return SafeArea(
+      child: Scaffold(
+        body: FutureBuilder(
+          future: buildContent(),
+          builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
+            if (snapshot.hasData) return snapshot.data;
+            return Center(child: CircularProgressIndicator());
+          },
+        ),
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: _goToTheLake,
-      //   label: Text('To the lake!'),
-      //   icon: Icon(Icons.directions_boat),
-      // ),
     );
   }
 
